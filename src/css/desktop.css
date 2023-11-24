@@ -1,0 +1,9 @@
+@media screen and (min-width: 768px) {
+    .main-header {
+        padding: 1rem 8rem;
+    }
+
+    .main-header .container .cta {
+        font-size: 1.15rem;
+    }
+}
