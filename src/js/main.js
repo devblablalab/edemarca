@@ -4,9 +4,9 @@ import { ajaxPromiseShirtsData } from './ajax.js';
 $(document).ready(function() {
     async function initShirts() {
       const data = await ajaxPromiseShirtsData();
-      renderShirts(data);
+      renderShirts(data.reverse());
     }
-    
+
     initShirts();
 });
 
