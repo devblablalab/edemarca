@@ -62,10 +62,11 @@ main .shirts-container {
     position: relative;
     display: flex;
     flex-direction: column;
+    margin-left: calc(50%  - 160px);
     gap: 3rem;
-    -webkit-transition: margin-left .25s ease;
-    -o-transition: margin-left .25s ease;
-    transition: margin-left .25s ease;
+    -webkit-transition: margin-left .1s ease;
+    -o-transition: margin-left .1s ease;
+    transition: margin-left .1s ease;
 }
 
 main .shirts-container .line {
@@ -103,4 +104,22 @@ main .shirts-container .warning {
     text-align: center;
     text-transform: uppercase;
     color: var(--primary);
+}
+
+main .shirts-info {
+    text-align: center;
+}
+main .shirts-info .initial-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 2em;
+    color: var(--primary);
+}
+main .shirts-info .initial-text .title {
+    font-size: 3em;
+}
+main .shirts-info .initial-text .title strong{
+    font-weight: bold;
 }
