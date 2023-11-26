@@ -1,3 +1,5 @@
+import { isDesktopDevice } from "./utils.js";
+
 function shirtsHasInvalidOptions(options) {
     const defaultOptions = ['left','zIndex'];
     return !options || typeof options !== 'object' || defaultOptions.every(option => options.hasOwnProperty(option)) === false;
@@ -17,38 +19,57 @@ function checkAndResetMargin($container, initialMargin) {
 }
 
 function applySlideEvents($container) {
-    if($container.length) {
+    if ($container.length) {
         let scrollSpeed = 40;
         let initialMargin = 40;
+        let isDragging = false;
+        let dragStartX = 0;
 
-        $container.on('wheel', function (event) {
-            if (event.originalEvent.deltaY > 0) {
-                $container.css('marginLeft', '-=' + scrollSpeed + 'px');
-            } else {
-                $container.css('marginLeft', '+=' + scrollSpeed + 'px');
-            }
-
-            checkAndResetMargin($container, initialMargin);
-        });
+        if(isDesktopDevice()) {
+            $container.on('mousedown', function (event) {
+                isDragging = true;
+                dragStartX = event.clientX;
+            });
     
-        let touchStartX = 0;
-        $container.on('touchstart', function (event) {
-            touchStartX = event.touches[0].clientX;
-        });
+            $container.on('mousemove', function (event) {
+                if (isDragging) {
+                    let dragEndX = event.clientX;
+                    let deltaX = dragStartX - dragEndX;
     
-        $container.on('touchmove', function (event) {
-            let touchEndX = event.touches[0].clientX;
-            let deltaX = touchStartX - touchEndX;
+                    if (deltaX > 0) {
+                        $container.css('marginLeft', '-=' + scrollSpeed + 'px');
+                    } else {
+                        $container.css('marginLeft', '+=' + scrollSpeed + 'px');
+                    }
     
-            if (deltaX > 0) {
-                $container.css('marginLeft', '-=' + scrollSpeed + 'px');
-            } else {
-                $container.css('marginLeft', '+=' + scrollSpeed + 'px');
-            }
-            
-            touchStartX = touchEndX;
-            checkAndResetMargin($container, initialMargin);
-        });
+                    dragStartX = dragEndX;
+                    checkAndResetMargin($container, initialMargin);
+                }
+            });
+    
+            $container.on('mouseup mouseleave', function () {
+                isDragging = false;
+            });
+        } else {
+            let touchStartX = 0;
+            $container.on('touchstart', function (event) {
+                touchStartX = event.touches[0].clientX;
+            });
+    
+            $container.on('touchmove', function (event) {
+                let touchEndX = event.touches[0].clientX;
+                let deltaX = touchStartX - touchEndX;
+    
+                if (deltaX > 0) {
+                    $container.css('marginLeft', '-=' + scrollSpeed + 'px');
+                } else {
+                    $container.css('marginLeft', '+=' + scrollSpeed + 'px');
+                }
+    
+                touchStartX = touchEndX;
+                checkAndResetMargin($container, initialMargin);
+            });
+        }
     }
 }
 
@@ -72,8 +93,10 @@ export function getShirtHtml(options) {
 export function renderShirts(data) {
     if(!data) return;
 
-    const $shirts = $('.shirts');
     const $shirtsContainer = $('.shirts-container');
+    const $shirts = $shirtsContainer.find('.shirts');
+    const $shirtsInfo = $('.shirts-info');
+    const $shirtsInfoContainer = $shirtsInfo.find('.container');
 
     const shirtOptions = {
         left: '0px',
@@ -85,8 +108,17 @@ export function renderShirts(data) {
             shirtOptions.left = parseInt(shirtOptions.left.replace('px','')) + 40 + 'px';    
             shirtOptions.zIndex = shirtOptions.zIndex - 1;
         }
-
         return getShirtHtml(shirtOptions);
+    }).join(''));
+
+    $shirtsInfoContainer.append(data.reverse().map((item,index,array) => {
+        return `
+            <a href="${item.link}" target="_blank" class="shirt-info ${index == 0 ? 'active' : ''}">
+                <p>${array.indexOf(item) + 1}.</p>
+                <p>${item.brand.trim()}</p>
+                <strong>${item.price.trim()}</strong>        
+            </a>
+        `
     }).join(''));
 
     applySlideEvents($shirtsContainer);

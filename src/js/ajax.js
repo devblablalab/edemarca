@@ -1,5 +1,5 @@
 import { getAjaxOptionsJson } from "./utils.js";
 
-function getShirtsData() {
-    
+export function ajaxPromiseShirtsData() {
+    return $.ajax(getAjaxOptionsJson('../../public/data.json'));
 }

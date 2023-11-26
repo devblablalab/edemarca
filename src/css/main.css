@@ -55,14 +55,13 @@
 }
 
 main {
-    padding: 5.4rem 1rem;
+    padding: 5.4rem 0;
 }
 
 main .shirts-container {
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-left: calc(50%  - 160px);
     gap: 3rem;
     -webkit-transition: margin-left .1s ease;
     -o-transition: margin-left .1s ease;
@@ -70,10 +69,11 @@ main .shirts-container {
 }
 
 main .shirts-container .line {
-    position: fixed;
-    top: 9.6rem;
+    position: absolute;
+    top: 1.2rem;
     left: 0;
     width: 100%;
+    min-width: 100vw;
     min-width: 20rem;
     height: 3px;
     background: var(--primary);
@@ -109,17 +109,47 @@ main .shirts-container .warning {
 main .shirts-info {
     text-align: center;
 }
+
+main .shirts-info svg {
+    padding: 2rem 0;
+}
+
 main .shirts-info .initial-text {
     display: flex;
     flex-direction: column;
     gap: 3em;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 2em;
+    padding: 2rem 0;
     color: var(--primary);
 }
+
 main .shirts-info .initial-text .title {
-    font-size: 3em;
+    font-size: 2em;
 }
+
 main .shirts-info .initial-text .title strong{
     font-weight: bold;
+}
+
+main .shirts-info .container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    padding: 6rem 0;
+}
+
+main .shirts-info .shirt-info {
+    flex: 1 0 auto;
+    display: none;
+    flex-direction: column;
+    gap: .4rem;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--gray);
+}
+
+main .shirts-info .shirt-info.active {
+    display: flex;
+    color: var(--primary);
 }

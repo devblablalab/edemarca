@@ -15,3 +15,10 @@ export function getAjaxOptionsJson(url, method = 'GET', data = null, headers = {
 
     return options;
 }
+
+export function isDesktopDevice() {
+    const userAgent = navigator.userAgent;
+    const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+
+    return !mobileRegex.test(userAgent);
+}

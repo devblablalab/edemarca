@@ -18,6 +18,19 @@
         height: 15rem;
     }
 
+    main .shirts-info .initial-text .title {
+        font-size: 3em;
+    }
+
+    main .shirts-info .container {
+        padding-top: 6rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    main .shirts-info .shirt-info {
+        font-size: 3rem;
+    }
+    
     .main-footer .blablalab-logo:hover {
         filter: brightness(10%)
     }

@@ -3,3 +3,7 @@
     padding: 1rem 1.5rem;
     margin: 0 auto;
 }
+
+.d-none {
+    display: none!important;
+}
