@@ -1,9 +1,24 @@
 @media screen and (min-width: 768px) {
-    .main-header {
-        padding: 1rem 8rem;
+    .container {
+        padding: 1rem 4rem;
+    }
+
+    .main-header .container .brand {
+        width: 100%;
+        max-width: 10rem;
+        height: auto;
     }
 
     .main-header .container .cta {
         font-size: 1.15rem;
+    }
+
+    main .shirts .shirt svg {
+        width: 15rem;
+        height: 15rem;
+    }
+
+    .main-footer .blablalab-logo:hover {
+        filter: brightness(10%)
     }
 }

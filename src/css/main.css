@@ -3,19 +3,22 @@
     min-height: 100vh;
 }
 
-.main-header {
-    padding: 1rem 2rem;
-}
-
 .main-header .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 2rem;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .main-header .container .brand {
-    max-width: 100%;
+    width: 100%;
+    max-width: 7rem;
     height: auto;
 }
 
@@ -28,9 +31,15 @@
 
 .main-footer {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     position: absolute;
     padding: 1rem 0;
     left: 0;
@@ -43,4 +52,55 @@
     background-image: url('../assets/blablalab.svg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+main {
+    padding: 5.4rem 1rem;
+}
+
+main .shirts-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    -webkit-transition: margin-left .25s ease;
+    -o-transition: margin-left .25s ease;
+    transition: margin-left .25s ease;
+}
+
+main .shirts-container .line {
+    position: fixed;
+    top: 9.6rem;
+    left: 0;
+    width: 100%;
+    min-width: 20rem;
+    height: 3px;
+    background: var(--primary);
+}
+
+main .shirts-container .shirts {
+    position: relative;
+    overflow: hidden;
+    min-width: 100%;
+    min-height: 20rem;
+}
+
+main .shirts-container .shirts .line {
+    position: absolute;
+    top: 0;
+}
+
+main .shirts-container .shirts .shirt {
+    position: absolute;
+}
+
+main .shirts-container .shirts .shirt svg {
+    width: 20rem;
+    height: 20rem;
+}
+
+main .shirts-container .warning {
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--primary);
 }
