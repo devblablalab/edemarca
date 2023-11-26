@@ -1,4 +1,4 @@
-import { isDesktopDevice } from "./utils.js";
+import { isDesktopDevice, getNearestNumber } from "./utils.js";
 
 function shirtsHasInvalidOptions(options) {
     const defaultOptions = ['id','left','zIndex'];
@@ -11,10 +11,10 @@ function activeShirtInfo(id) {
 }
 
 function checkAndResetShirtState($container, initialMargin) {
-    const $firstShirt = $container.find('.shirts .shirt:first');
+    const $firstShirt = $container.find('.shirt:first');
     const lastShirtLeft =  $firstShirt.offset().left;
 
-    const $lastShirt = $container.find('.shirts .shirt:last');
+    const $lastShirt = $container.find('.shirt:last');
     const lastShirtRight = $lastShirt.offset().left + $lastShirt.outerWidth(true);
     const swipeCalc = lastShirtLeft  + 80;
 
@@ -26,9 +26,9 @@ function checkAndResetShirtState($container, initialMargin) {
 
 function selectCurrentShirtAndActiveInfo() {
     const $shirts = $(`.shirts .shirt`);
-    const rightPositiveVals = $.map($shirts,(shirt,i) => shirt.getBoundingClientRect().right).filter(val => val > 0);
+    const rightPositiveVals = $.map($shirts, shirt => shirt.getBoundingClientRect().right).filter(val => val > 0);
     const $currentShirt = $shirts.filter(function( index ) {
-        return this.getBoundingClientRect().right === Math.min(...rightPositiveVals)
+        return this.getBoundingClientRect().right === getNearestNumber(rightPositiveVals,$(window).outerWidth() / 2)
     });
 
     if($currentShirt.length) {
@@ -146,5 +146,5 @@ export function renderShirts(data) {
         `
     }).join(''));
 
-    applySlideEvents($shirtsContainer);
+    applySlideEvents($shirts);
 }   

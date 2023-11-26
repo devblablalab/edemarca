@@ -63,9 +63,6 @@ main .shirts-container {
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    -webkit-transition: margin-left .1s ease;
-    -o-transition: margin-left .1s ease;
-    transition: margin-left .1s ease;
 }
 
 main .shirts-container .line {
@@ -84,6 +81,9 @@ main .shirts-container .shirts {
     overflow: hidden;
     min-width: 100%;
     min-height: 20rem;
+    -webkit-transition: margin-left .1s ease;
+    -o-transition: margin-left .1s ease;
+    transition: margin-left .1s ease;
 }
 
 main .shirts-container .shirts .line {
