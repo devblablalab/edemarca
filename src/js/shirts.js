@@ -5,7 +5,12 @@ function shirtsHasInvalidOptions(options) {
     return !options || typeof options !== 'object' || defaultOptions.every(option => options.hasOwnProperty(option)) === false;
 }
 
-function checkAndResetMargin($container, initialMargin) {
+function activeShirtInfo(id) {
+    $('[data-shirt-info-key]')?.removeClass('active');
+    $(`[data-shirt-info-key="${id}"]`)?.addClass('active');
+}
+
+function checkAndResetShirtState($container, initialMargin) {
     const $firstShirt = $container.find('.shirts .shirt:first');
     const lastShirtLeft =  $firstShirt.offset().left;
 
@@ -15,6 +20,7 @@ function checkAndResetMargin($container, initialMargin) {
 
     if (lastShirtRight < 0 ||  swipeCalc > $(window).outerWidth()) {
         $container.css('marginLeft', initialMargin);
+        activeShirtInfo($firstShirt.data('id'));
     } 
 }
 
@@ -26,8 +32,7 @@ function selectCurrentShirtAndActiveInfo() {
     });
 
     if($currentShirt.length) {
-        $('[data-shirt-info-key]')?.removeClass('active');
-        $(`[data-shirt-info-key="${$currentShirt.data('id')}"]`)?.addClass('active');
+        activeShirtInfo($currentShirt.data('id'));
     }
 }
 
@@ -58,7 +63,7 @@ function applySlideEvents($container) {
                     }
     
                     dragStartX = dragEndX;
-                    checkAndResetMargin($container, initialMargin);
+                    checkAndResetShirtState($container, initialMargin);
                     selectCurrentShirtAndActiveInfo();
                 }
             });
@@ -85,7 +90,7 @@ function applySlideEvents($container) {
                 }
     
                 touchStartX = touchEndX;
-                checkAndResetMargin($container, initialMargin);
+                checkAndResetShirtState($container, initialMargin);
                 selectCurrentShirtAndActiveInfo();
             });
         }
