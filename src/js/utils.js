@@ -23,8 +23,6 @@ export function isDesktopDevice() {
     return !mobileRegex.test(userAgent);
 }
 
-export function getNearestNumber(arr,numRef) {
-    return arr.reduce(function (prev, current) {
-        return Math.abs(current - numRef) < Math.abs(prev - numRef) ? current : prev;
-    });
+export function getCenterRect(elementRect) {
+    return (elementRect.left + elementRect.right) / 2
 }

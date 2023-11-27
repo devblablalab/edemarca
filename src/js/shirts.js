@@ -1,4 +1,4 @@
-import { getNearestNumber } from "./utils.js";
+import { getCenterRect } from "./utils.js";
 
 function shirtsHasInvalidOptions(options) {
     const defaultOptions = ['id','left','zIndex'];
@@ -26,13 +26,28 @@ function checkAndResetShirtState($container, initialMargin) {
 
 function selectCurrentShirtAndActiveInfo() {
     const $shirts = $(`.shirts .shirt`);
-    const rightPositiveVals = $.map($shirts, shirt => shirt.getBoundingClientRect().right).filter(val => val > 0);
-    const $currentShirt = $shirts.filter(function( index ) {
-        return this.getBoundingClientRect().right === getNearestNumber(rightPositiveVals,$(window).outerWidth() / 2)
+    const $arrowIcon = $('#arrow-info-icon');
+
+    let minDistance = Number.MAX_SAFE_INTEGER;
+    let $closestShirt;
+
+    $shirts.each(function() {
+        const shirtRect = this.getBoundingClientRect();
+        const arrowIconRect = $arrowIcon[0].getBoundingClientRect();
+        
+        const shirtCenterX = getCenterRect(shirtRect);
+        const arrowIconCenterX = getCenterRect(arrowIconRect);
+
+        const distance = Math.abs(shirtCenterX - arrowIconCenterX);
+
+        if (distance < minDistance) {
+            minDistance = distance;
+            $closestShirt = $(this);
+        }
     });
 
-    if($currentShirt.length) {
-        activeShirtInfo($currentShirt.data('id'));
+    if ($closestShirt && $closestShirt.length) {
+        activeShirtInfo($closestShirt.data('id'));
     }
 }
 
@@ -63,7 +78,6 @@ function applySlideEvents($container) {
                 }
 
                 dragStartX = dragEndX;
-                //checkAndResetShirtState($container, initialMargin);
                 selectCurrentShirtAndActiveInfo();
             }
         });
@@ -89,7 +103,7 @@ function applySlideEvents($container) {
             }
 
             touchStartX = touchEndX;
-            //checkAndResetShirtState($container, initialMargin);
+
             selectCurrentShirtAndActiveInfo();
         });
     }
