@@ -1,4 +1,4 @@
-import { isDesktopDevice, getNearestNumber } from "./utils.js";
+import { getNearestNumber } from "./utils.js";
 
 function shirtsHasInvalidOptions(options) {
     const defaultOptions = ['id','left','zIndex'];
@@ -43,57 +43,55 @@ function applySlideEvents($container) {
         let initialMargin = 40;
         let isDragging = false;
         let dragStartX = 0;
+        let touchStartX = 0;
 
-        if(isDesktopDevice()) {
-            $container.on('mousedown', function (event) {
-                isDragging = true;
-                dragStartX = event.clientX;
-            });
-    
-            $container.on('mousemove', function (event) {
-                if (isDragging) {
-                    let dragEndX = event.clientX;
-                    let deltaX = dragStartX - dragEndX;
-    
-                    if (deltaX > 0) {
-                        $container.css('marginLeft', '-=' + scrollSpeed + 'px');
-                    } else {
-                        $container.css('marginLeft', '+=' + scrollSpeed + 'px');
+        $container.on('mousedown', function (event) {
+            isDragging = true;
+            dragStartX = event.clientX;
+        });
 
-                    }
-    
-                    dragStartX = dragEndX;
-                    checkAndResetShirtState($container, initialMargin);
-                    selectCurrentShirtAndActiveInfo();
-                }
-            });
-    
-            $container.on('mouseup mouseleave', function () {
-                isDragging = false;
-            });
-        } else {
-            let touchStartX = 0;
-            $container.on('touchstart', function (event) {
-                touchStartX = event.touches[0].clientX;
-            });
-    
-            $container.on('touchmove', function (event) {
-                let touchEndX = event.touches[0].clientX;
-                let deltaX = touchStartX - touchEndX;
-    
+        $container.on('mousemove', function (event) {
+            if (isDragging) {
+                let dragEndX = event.clientX;
+                let deltaX = dragStartX - dragEndX;
+
                 if (deltaX > 0) {
                     $container.css('marginLeft', '-=' + scrollSpeed + 'px');
-                    currentValue -= 40;
                 } else {
                     $container.css('marginLeft', '+=' + scrollSpeed + 'px');
-                    currentValue += 40;
+
                 }
-    
-                touchStartX = touchEndX;
-                checkAndResetShirtState($container, initialMargin);
+
+                dragStartX = dragEndX;
+                //checkAndResetShirtState($container, initialMargin);
                 selectCurrentShirtAndActiveInfo();
-            });
-        }
+            }
+        });
+
+        $container.on('mouseup mouseleave', function () {
+            isDragging = false;
+        });
+
+        $container.on('touchstart', function (event) {
+            touchStartX = event.touches[0].clientX;
+        });
+
+        $container.on('touchmove', function (event) {
+            let touchEndX = event.touches[0].clientX;
+            let deltaX = touchStartX - touchEndX;
+
+            if (deltaX > 0) {
+                $container.css('marginLeft', '-=' + scrollSpeed + 'px');
+                currentValue -= 40;
+            } else {
+                $container.css('marginLeft', '+=' + scrollSpeed + 'px');
+                currentValue += 40;
+            }
+
+            touchStartX = touchEndX;
+            //checkAndResetShirtState($container, initialMargin);
+            selectCurrentShirtAndActiveInfo();
+        });
     }
 }
 
@@ -139,7 +137,7 @@ export function renderShirts(data) {
     $shirtsInfoContainer.append(data.map((item,index) => {
         return `
             <a href="${item.link}" target="_blank" data-shirt-info-key="${item.id}" class="shirt-info ${index == 0 ? 'active' : ''}">
-                <p>${item.id}.</p>
+                <p class="id-info">${item.id}.</p>
                 <p>${item.brand.trim()}</p>
                 <strong>${item.price.trim()}</strong>        
             </a>

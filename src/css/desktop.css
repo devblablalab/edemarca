@@ -5,30 +5,20 @@
 
     .main-header .container .brand {
         width: 100%;
-        max-width: 10rem;
+        max-width: 15rem;
         height: auto;
     }
 
     .main-header .container .cta {
-        font-size: 1.15rem;
-    }
-
-    main .shirts .shirt svg {
-        width: 15rem;
-        height: 15rem;
+        font-size: 1.8rem;
     }
 
     main .shirts-info .initial-text .title {
-        font-size: 3em;
-    }
-
-    main .shirts-info .container {
-        padding-top: 6rem;
-        grid-template-columns: repeat(3, 1fr);
+        font-size: 4rem;
     }
 
     main .shirts-info .shirt-info {
-        font-size: 3rem;
+        font-size: 4rem;
     }
     
     .main-footer .blablalab-logo:hover {

@@ -1,6 +1,11 @@
 .wrapper {
     position: relative;
     min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.main-header {
+    padding: 2rem 0;
 }
 
 .main-header .container {
@@ -18,12 +23,12 @@
 
 .main-header .container .brand {
     width: 100%;
-    max-width: 7rem;
+    max-width: 12rem;
     height: auto;
 }
 
 .main-header .container .cta {
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 500;
     text-transform: uppercase;
     color: var(--primary);
@@ -41,21 +46,21 @@
         -ms-flex-align: center;
             align-items: center;
     position: absolute;
-    padding: 1rem 0;
+    padding: 2rem 0;
     left: 0;
     bottom: 0;
 }
 
 .main-footer .blablalab-logo {
-    width: 6rem;
-    height: 4rem;
+    width: 10rem;
+    height: 6rem;
     background-image: url('../assets/blablalab.svg');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 main {
-    padding: 5.4rem 0;
+    padding: 7.5rem 0;
 }
 
 main .shirts-container {
@@ -70,8 +75,6 @@ main .shirts-container .line {
     top: 1.2rem;
     left: 0;
     width: 100%;
-    min-width: 100vw;
-    min-width: 20rem;
     height: 3px;
     background: var(--primary);
 }
@@ -79,8 +82,9 @@ main .shirts-container .line {
 main .shirts-container .shirts {
     position: relative;
     overflow: hidden;
+    margin-left: calc(50vw - calc(30rem / 2));
     min-width: 100%;
-    min-height: 20rem;
+    min-height: 30rem;
     -webkit-transition: margin-left .1s ease;
     -o-transition: margin-left .1s ease;
     transition: margin-left .1s ease;
@@ -96,8 +100,8 @@ main .shirts-container .shirts .shirt {
 }
 
 main .shirts-container .shirts .shirt svg {
-    width: 20rem;
-    height: 20rem;
+    width: 30rem;
+    height: 30rem;
 }
 
 main .shirts-container .warning {
@@ -111,7 +115,7 @@ main .shirts-info {
 }
 
 main .shirts-info svg {
-    padding: 2rem 0;
+    padding: 1rem 0;
 }
 
 main .shirts-info .initial-text {
@@ -123,7 +127,7 @@ main .shirts-info .initial-text {
 }
 
 main .shirts-info .initial-text .title {
-    font-size: 2em;
+    font-size: 2.2rem;
 }
 
 main .shirts-info .initial-text .title strong{
@@ -133,20 +137,22 @@ main .shirts-info .initial-text .title strong{
 main .shirts-info .container {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: center;
+    gap: 5rem;
     align-items: center;
-    padding: 6rem 0;
 }
 
 main .shirts-info .shirt-info {
-    flex: 1 0 auto;
     display: none;
     flex-direction: column;
     gap: .4rem;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     font-weight: 600;
     color: var(--gray);
+}
+
+main .shirts-info .shirt-info .id-info {
+    padding-bottom: 4rem;
 }
 
 main .shirts-info .shirt-info.active {
