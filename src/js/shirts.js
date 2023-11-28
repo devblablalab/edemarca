@@ -1,4 +1,4 @@
-import { getCenterRect } from "./utils.js";
+import { getCenterRect, convertPxToInt } from "./utils.js";
 
 function shirtsHasInvalidOptions(options) {
     const defaultOptions = ['id','left','zIndex'];
@@ -11,21 +11,25 @@ function activeShirtInfo(id) {
 }
 
 function checkAndResetShirtPosition($container) {
-    let activeTriggerLimit = false;
+    let id = null;
     const $firstShirt = $container.find('.shirt:first');
     const firstShirtRectX = $firstShirt.offset().left;
     const arrowIconRectX = $('#arrow-info-icon').offset().left;
 
     const $lastShirt = $container.find('.shirt:last');
     const lastShirtCenterRectX = getCenterRect($lastShirt[0].getBoundingClientRect());
-    const lastShirtLimitCalc = lastShirtCenterRectX + (($lastShirt.outerWidth() / 2) / 2);
+    const sliceOfShirt = ($lastShirt.outerWidth() / 2) / 2;
+    const lastShirtLimitCalc = lastShirtCenterRectX + sliceOfShirt;
 
-    if (arrowIconRectX < firstShirtRectX || arrowIconRectX > lastShirtLimitCalc) {
+    if (arrowIconRectX < firstShirtRectX) {
         $container.css('marginLeft', $container.data('initialMarginLeft'));
-        activeTriggerLimit = true;
+        id = $firstShirt.data('id');
+    } else if(arrowIconRectX > lastShirtLimitCalc) {
+        $container.css('marginLeft', convertPxToInt($container.css('marginLeft')) + sliceOfShirt / 2);
+        id = $lastShirt.data('id');
     }
 
-    if(activeTriggerLimit) activeShirtInfo($firstShirt.data('id'));
+    if(id) activeShirtInfo(id);
 }
 
 function selectCurrentShirtAndActiveInfo() {

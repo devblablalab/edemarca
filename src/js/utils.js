@@ -26,3 +26,8 @@ export function isDesktopDevice() {
 export function getCenterRect(elementRect) {
     return (elementRect.left + elementRect.right) / 2
 }
+
+export function convertPxToInt(pxString) {
+    if(!pxString.includes('px')) return pxString;
+    return parseInt(pxString.replace('px',''));
+}
