@@ -10,18 +10,22 @@ function activeShirtInfo(id) {
     $(`[data-shirt-info-key="${id}"]`)?.addClass('active');
 }
 
-function checkAndResetShirtState($container, initialMargin) {
+function checkAndResetShirtPosition($container) {
+    let activeTriggerLimit = false;
     const $firstShirt = $container.find('.shirt:first');
-    const lastShirtLeft =  $firstShirt.offset().left;
+    const firstShirtRectX = $firstShirt.offset().left;
+    const arrowIconRectX = $('#arrow-info-icon').offset().left;
 
     const $lastShirt = $container.find('.shirt:last');
-    const lastShirtRight = $lastShirt.offset().left + $lastShirt.outerWidth(true);
-    const swipeCalc = lastShirtLeft  + 80;
+    const lastShirtCenterRectX = getCenterRect($lastShirt[0].getBoundingClientRect());
+    const lastShirtLimitCalc = lastShirtCenterRectX + (($lastShirt.outerWidth() / 2) / 2);
 
-    if (lastShirtRight < 0 ||  swipeCalc > $(window).outerWidth()) {
-        $container.css('marginLeft', initialMargin);
-        activeShirtInfo($firstShirt.data('id'));
-    } 
+    if (arrowIconRectX < firstShirtRectX || arrowIconRectX > lastShirtLimitCalc) {
+        $container.css('marginLeft', $container.data('initialMarginLeft'));
+        activeTriggerLimit = true;
+    }
+
+    if(activeTriggerLimit) activeShirtInfo($firstShirt.data('id'));
 }
 
 function selectCurrentShirtAndActiveInfo() {
@@ -79,6 +83,7 @@ function applySlideEvents($container) {
 
                 dragStartX = dragEndX;
                 selectCurrentShirtAndActiveInfo();
+                checkAndResetShirtPosition($container);
             }
         });
 
@@ -105,6 +110,7 @@ function applySlideEvents($container) {
             touchStartX = touchEndX;
 
             selectCurrentShirtAndActiveInfo();
+            checkAndResetShirtPosition($container);
         });
     }
 }
@@ -157,6 +163,9 @@ export function renderShirts(data) {
             </a>
         `
     }).join(''));
+
+    // Apply first margin dataset
+    $shirts.data('initialMarginLeft', $shirts.css('margin-left'));
 
     applySlideEvents($shirts);
 }   
