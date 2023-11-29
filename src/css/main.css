@@ -68,7 +68,7 @@ main .shirts-container {
     display: flex;
     flex-direction: column;
     gap: 3rem;
-}
+    }
 
 main .shirts-container .line {
     position: absolute;
@@ -104,12 +104,6 @@ main .shirts-container .shirts .shirt svg {
     height: 30rem;
 }
 
-main .shirts-container .warning {
-    text-align: center;
-    text-transform: uppercase;
-    color: var(--primary);
-}
-
 main .shirts-info {
     text-align: center;
 }
@@ -138,24 +132,30 @@ main .shirts-info .container {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    gap: 5rem;
+    gap: 1rem;
     align-items: center;
 }
 
 main .shirts-info .shirt-info {
     display: none;
+    min-width: 19rem;
     flex-direction: column;
+    align-items: center;
     gap: .4rem;
-    font-size: 3.5rem;
-    font-weight: 600;
+    font-size: 3.2rem;
+    font-weight: 500;
     color: var(--gray);
 }
 
-main .shirts-info .shirt-info .id-info {
+/* main .shirts-info .shirt-info .id-info {
     padding-bottom: 4rem;
+} */
+
+main .shirts-info .shirt-info.active,
+main .shirts-info .shirt-info.active-disabled {
+    display: flex;
 }
 
 main .shirts-info .shirt-info.active {
-    display: flex;
     color: var(--primary);
 }

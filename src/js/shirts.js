@@ -6,8 +6,15 @@ function shirtsHasInvalidOptions(options) {
 }
 
 function activeShirtInfo(id) {
-    $('[data-shirt-info-key]')?.removeClass('active');
-    $(`[data-shirt-info-key="${id}"]`)?.addClass('active');
+    const $shirtInfoElements = $('[data-shirt-info-key]');
+    const index = $shirtInfoElements.index($(`[data-shirt-info-key="${id}"]`));
+
+    $shirtInfoElements.removeClass('active active-disabled');
+
+    $(`[data-shirt-info-key="${id}"]`).addClass('active');
+
+    $shirtInfoElements.eq(index - 1).addClass('active-disabled');
+    $shirtInfoElements.eq(index + 1).addClass('active-disabled');
 }
 
 function checkAndResetShirtPosition($container) {
