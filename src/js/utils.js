@@ -31,3 +31,15 @@ export function convertPxToInt(pxString) {
     if(!pxString.includes('px')) return pxString;
     return parseInt(pxString.replace('px',''));
 }
+
+export function triggerSplashScreen() {
+    $('#splash-right').animate({
+        'left': "-500000px",
+    }, 3000);
+    
+    $('#splash-left').animate({
+        'left': "500000px",
+    }, 3000, function() {
+        $('#splash-screen').remove();
+    });
+}
