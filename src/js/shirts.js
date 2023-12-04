@@ -75,28 +75,28 @@ function applySlideEvents($container) {
         let dragStartX = 0;
         let touchStartX = 0;
 
-        $container.on('mousedown', function (event) {
-            isDragging = true;
-            dragStartX = event.clientX;
-        });
+        // $container.on('mousedown', function (event) {
+        //     isDragging = true;
+        //     dragStartX = event.clientX;
+        // });
 
-        $container.on('mousemove', function (event) {
-            if (isDragging) {
-                let dragEndX = event.clientX;
-                let deltaX = dragStartX - dragEndX;
+        // $container.on('mousemove', function (event) {
+        //     if (isDragging) {
+        //         let dragEndX = event.clientX;
+        //         let deltaX = dragStartX - dragEndX;
 
-                if (deltaX > 0) {
-                    $container.css('marginLeft', '-=' + scrollSpeed + 'px');
-                } else {
-                    $container.css('marginLeft', '+=' + scrollSpeed + 'px');
+        //         if (deltaX > 0) {
+        //             $container.css('marginLeft', '-=' + scrollSpeed + 'px');
+        //         } else {
+        //             $container.css('marginLeft', '+=' + scrollSpeed + 'px');
 
-                }
+        //         }
 
-                dragStartX = dragEndX;
-                selectCurrentShirtAndActiveInfo();
-                checkAndResetShirtPosition($container);
-            }
-        });
+        //         dragStartX = dragEndX;
+        //         selectCurrentShirtAndActiveInfo();
+        //         checkAndResetShirtPosition($container);
+        //     }
+        // });
 
         $container.on('mouseup mouseleave', function () {
             isDragging = false;
@@ -180,3 +180,10 @@ export function renderShirts(data) {
 
     applySlideEvents($shirts);
 }   
+
+$(window).on('wheel', function () {
+    console.log('oi')
+
+    selectCurrentShirtAndActiveInfo();
+//  checkAndResetShirtPosition($);
+})

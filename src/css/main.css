@@ -1,7 +1,13 @@
 .wrapper {
     position: relative;
     min-height: 100vh;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
+    overflow-y: hidden;
+}
+
+
+::-webkit-scrollbar{
+    display: none;
 }
 
 .main-header {
@@ -72,7 +78,7 @@ main .shirts-container {
 
 main .shirts-container .line {
     position: absolute;
-    top: 1.2rem;
+    top: 1.4rem;
     left: 0;
     width: 100%;
     height: 3px;
@@ -81,7 +87,7 @@ main .shirts-container .line {
 
 main .shirts-container .shirts {
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin-left: calc(50vw - calc(30rem / 2));
     min-width: 100%;
     min-height: 30rem;
@@ -92,6 +98,10 @@ main .shirts-container .shirts {
 
 main .shirts-container .shirts .line {
     position: absolute;
+    top: 1.4rem;
+    left: 0;
+    width: 100%;
+    height: 3px;
     top: 0;
 }
 
@@ -106,10 +116,13 @@ main .shirts-container .shirts .shirt svg {
 
 main .shirts-info {
     text-align: center;
+    width: 100%;
 }
 
 main .shirts-info svg {
     padding: 1rem 0;
+    position: fixed;
+    margin-bottom: 2em;
 }
 
 main .shirts-info .initial-text {
@@ -129,11 +142,22 @@ main .shirts-info .initial-text .title strong{
 }
 
 main .shirts-info .container {
+    /* display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center; */
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
     gap: 1rem;
     align-items: center;
+    position: fixed;
+    width: 100%;
+    max-width: unset;
+    margin-top: 2em;
+   
+  
 }
 
 main .shirts-info .shirt-info {
