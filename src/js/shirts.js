@@ -17,26 +17,16 @@ function activeShirtInfo(id) {
     $shirtInfoElements.eq(index + 1).addClass('active-disabled');
 }
 
-function checkAndResetShirtPosition($container) {
-    let id = null;
-    const $firstShirt = $container.find('.shirt:first');
-    const firstShirtRectX = $firstShirt.offset().left;
-    const arrowIconRectX = $('#arrow-info-icon').offset().left;
-
+function checkShirtLimitPosition($container) {
     const $lastShirt = $container.find('.shirt:last');
-    const lastShirtCenterRectX = getCenterRect($lastShirt[0].getBoundingClientRect());
-    const sliceOfShirt = ($lastShirt.outerWidth() / 2) / 2;
-    const lastShirtLimitCalc = lastShirtCenterRectX + sliceOfShirt;
+    const lastVal = convertPxToInt($lastShirt.css('left'));
+    const currentVal = convertPxToInt($container.css('left'));
 
-    if (arrowIconRectX < firstShirtRectX) {
-        $container.css('marginLeft', $container.data('initialMarginLeft'));
-        id = $firstShirt.data('id');
-    } else if(arrowIconRectX > lastShirtLimitCalc) {
-        $container.css('marginLeft', convertPxToInt($container.css('marginLeft')) + sliceOfShirt / 2);
-        id = $lastShirt.data('id');
+    if(currentVal > 0) {
+        $container.css('left','0px');
+    } else if(Math.abs(currentVal) >= lastVal) {
+        $container.css('left',`-${lastVal - 2}px`)
     }
-
-    if(id) activeShirtInfo(id);
 }
 
 function selectCurrentShirtAndActiveInfo() {
@@ -68,60 +58,39 @@ function selectCurrentShirtAndActiveInfo() {
 
 function applySlideEvents($container) {
     if ($container.length) {
-        let currentValue = 0;
         let scrollSpeed = 40;
-        let initialMargin = 40;
         let isDragging = false;
-        let dragStartX = 0;
-        let touchStartX = 0;
+        let startEventX = 0;
 
-        $container.on('mousedown', function (event) {
+        $container.on('mousedown touchstart', function (event) {
             isDragging = true;
-            dragStartX = event.clientX;
+            startEventX = event.type === 'mousedown' ? event.clientX : event.touches[0].clientX;
+            scrollSpeed = event.type === 'mousedown' ? 40 : 80;
         });
-
-        $container.on('mousemove', function (event) {
+        
+        $container.on('mousemove touchmove', function (event) {
             if (isDragging) {
-                let dragEndX = event.clientX;
-                let deltaX = dragStartX - dragEndX;
-
-                if (deltaX > 0) {
-                    $container.css('marginLeft', '-=' + scrollSpeed + 'px');
-                } else {
-                    $container.css('marginLeft', '+=' + scrollSpeed + 'px');
-
-                }
-
-                dragStartX = dragEndX;
+                let endEventX = event.type === 'mousemove' ? event.clientX : event.touches[0].clientX;
+                let deltaX = startEventX - endEventX;
+        
+                $container.css('left', (deltaX > 0 ? '-=' : '+=') + scrollSpeed + 'px');
+        
+                checkShirtLimitPosition($container);
+                startEventX = endEventX;
                 selectCurrentShirtAndActiveInfo();
-                checkAndResetShirtPosition($container);
             }
         });
-
-        $container.on('mouseup mouseleave', function () {
+        
+        $container.on('mouseup mouseleave touchend', function () {
             isDragging = false;
         });
 
-        $container.on('touchstart', function (event) {
-            touchStartX = event.touches[0].clientX;
-        });
-
-        $container.on('touchmove', function (event) {
-            let touchEndX = event.touches[0].clientX;
-            let deltaX = touchStartX - touchEndX;
-
-            if (deltaX > 0) {
-                $container.css('marginLeft', '-=' + scrollSpeed + 'px');
-                currentValue -= 40;
-            } else {
-                $container.css('marginLeft', '+=' + scrollSpeed + 'px');
-                currentValue += 40;
-            }
-
-            touchStartX = touchEndX;
-
+        $(window).on('wheel', function (event) {
+            event.preventDefault();
+            let delta = event.originalEvent.deltaY;
+            $container.css('left', (delta > 0 ? '-=' : '+=') + scrollSpeed + 'px');
+            checkShirtLimitPosition($container);
             selectCurrentShirtAndActiveInfo();
-            checkAndResetShirtPosition($container);
         });
     }
 }
@@ -175,8 +144,5 @@ export function renderShirts(data) {
         `
     }).join(''));
 
-    // Apply first margin dataset
-    $shirts.data('initialMarginLeft', $shirts.css('margin-left'));
-
     applySlideEvents($shirts);
-}   
+}  
