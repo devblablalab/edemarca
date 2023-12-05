@@ -1,10 +1,9 @@
 .wrapper {
-    position: relative;
+    position: fixed;
+    width: 100%;
     min-height: 100vh;
-    /* overflow-x: hidden; */
-    overflow-y: hidden;
+    overflow: hidden;
 }
-
 
 ::-webkit-scrollbar{
     display: none;
@@ -87,13 +86,14 @@ main .shirts-container .line {
 
 main .shirts-container .shirts {
     position: relative;
-    /* overflow: hidden; */
-    margin-left: calc(50vw - calc(30rem / 2));
+    left: 0;
+    margin-left: calc(50vw - calc(27rem / 2));
     min-width: 100%;
     min-height: 30rem;
-    -webkit-transition: margin-left .1s ease;
-    -o-transition: margin-left .1s ease;
-    transition: margin-left .1s ease;
+    -webkit-transition: left .1s;
+    -moz-transition: left .1s;
+    -o-transition: left .1s;
+    transition: left .1s;
 }
 
 main .shirts-container .shirts .line {
