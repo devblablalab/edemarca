@@ -1,5 +1,6 @@
 import { renderShirts } from './shirts.js';
 import { ajaxPromiseShirtsData } from './ajax.js';
+import './interactions.js'
 
 $(document).ready(function() {
     async function initShirts() {
