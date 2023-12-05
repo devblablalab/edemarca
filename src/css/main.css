@@ -160,6 +160,37 @@ main .shirts-info .shirt-info.active {
     color: var(--primary);
 }
 
+main #saiba-mais {
+    width: 40%;
+    text-align: center;
+    align-self: center;
+    margin-left: 30%;
+    height: 50vh;
+    z-index: 99999999;
+    position: fixed;
+    background-color: var(--light);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    transition: all 2s ease-in-out;
+    bottom: -55vh;
+}
+
+main #saiba-mais.active{
+    bottom: 20vh;
+}
+
+main #saiba-mais #saiba-mais-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+main #saiba-mais #close{
+   padding: .5em;
+   border-bottom: 2px solid var(--primary);
+   border-left: 2px solid var(--primary);
+   font-size: 1.3em;
+}
 
 #splash-screen {
     position: fixed;
@@ -170,8 +201,6 @@ main .shirts-info .shirt-info.active {
     z-index: 9999;
       
     display: flex;
-   
-
 }
 
 #splash-screen #splash-right, #splash-screen #splash-left{
@@ -185,7 +214,6 @@ main .shirts-info .shirt-info.active {
     position: absolute;
     width: 50vw;
     height: 100vh;
-   
 }
 
 #splash-screen #splash-right{

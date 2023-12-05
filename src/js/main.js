@@ -1,5 +1,6 @@
 import { renderShirts } from './shirts.js';
 import { ajaxPromiseShirtsData } from './ajax.js';
+import './interactions.js'
 import { triggerSplashScreen } from './utils.js';
 
 $(document).ready(function() {
