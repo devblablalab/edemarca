@@ -33,13 +33,20 @@ export function convertPxToInt(pxString) {
 }
 
 export function triggerSplashScreen() {
+    const $splashScreen = $('#splash-screen');
+    const delayTime = 2000;
+
     $('#splash-right').animate({
         'left': "-500000px",
-    }, 3000);
+    }, delayTime);
     
     $('#splash-left').animate({
         'left': "500000px",
-    }, 3000, function() {
-        $('#splash-screen').remove();
+    }, delayTime, function() {
+        $splashScreen.remove();
     });
+
+    setTimeout(function() {
+        $splashScreen.css('z-index', 'unset');
+    }, 800); 
 }

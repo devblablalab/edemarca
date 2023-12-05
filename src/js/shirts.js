@@ -17,13 +17,20 @@ function activeShirtInfo(id) {
     $shirtInfoElements.eq(index + 1).addClass('active-disabled');
 }
 
-function checkShirtLimitPosition($container) {
+function updateShirtsLimitStates($container) {
     const $lastShirt = $container.find('.shirt:last');
     const lastVal = convertPxToInt($lastShirt.css('left'));
     const currentVal = convertPxToInt($container.css('left'));
+    const $contentToShowFirst = $('.show-first');
+    const $contentToShowAfter = $('.show-after');
+
+    $contentToShowFirst.addClass('d-none');
+    $contentToShowAfter.removeClass('d-none');
 
     if(currentVal > 0) {
         $container.css('left','0px');
+        $contentToShowFirst.removeClass('d-none');
+        $contentToShowAfter.addClass('d-none');
     } else if(Math.abs(currentVal) >= lastVal) {
         $container.css('left',`-${lastVal - 2}px`)
     }
@@ -75,7 +82,7 @@ function applySlideEvents($container) {
         
                 $container.css('left', (deltaX > 0 ? '-=' : '+=') + scrollSpeed + 'px');
         
-                checkShirtLimitPosition($container);
+                updateShirtsLimitStates($container);
                 startEventX = endEventX;
                 selectCurrentShirtAndActiveInfo();
             }
@@ -89,7 +96,7 @@ function applySlideEvents($container) {
             event.preventDefault();
             let delta = event.originalEvent.deltaY;
             $container.css('left', (delta > 0 ? '-=' : '+=') + scrollSpeed + 'px');
-            checkShirtLimitPosition($container);
+            updateShirtsLimitStates($container);
             selectCurrentShirtAndActiveInfo();
         });
     }

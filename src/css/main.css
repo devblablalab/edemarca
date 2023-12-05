@@ -86,8 +86,8 @@ main .shirts-container .line {
 
 main .shirts-container .shirts {
     position: relative;
-    left: 0;
-    margin-left: calc(50vw - calc(27rem / 2));
+        left: 0;
+    margin-left: calc(50vw - calc(30rem / 2));
     min-width: 100%;
     min-height: 30rem;
     -webkit-transition: left .1s;
@@ -121,20 +121,22 @@ main .shirts-info {
 
 main .shirts-info svg {
     padding: 1rem 0;
-    position: fixed;
-    margin-bottom: 2em;
 }
 
 main .shirts-info .initial-text {
     display: flex;
     flex-direction: column;
-    gap: 3em;
-    padding: 2rem 0;
+    gap: 4em;
+    padding: 1.5rem 0;
     color: var(--primary);
 }
 
+main .shirts-info .initial-text .warning {
+    font-size: 1.8rem;
+}
+
 main .shirts-info .initial-text .title {
-    font-size: 2.2rem;
+    font-size: 3.2rem;
 }
 
 main .shirts-info .initial-text .title strong{
@@ -142,22 +144,14 @@ main .shirts-info .initial-text .title strong{
 }
 
 main .shirts-info .container {
-    /* display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    gap: 1rem;
-    align-items: center; */
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
     gap: 1rem;
     align-items: center;
-    position: fixed;
     width: 100%;
     max-width: unset;
     margin-top: 2em;
-   
-  
 }
 
 main .shirts-info .shirt-info {
@@ -170,10 +164,6 @@ main .shirts-info .shirt-info {
     font-weight: 500;
     color: var(--gray);
 }
-
-/* main .shirts-info .shirt-info .id-info {
-    padding-bottom: 4rem;
-} */
 
 main .shirts-info .shirt-info.active,
 main .shirts-info .shirt-info.active-disabled {
@@ -223,7 +213,6 @@ main #saiba-mais #close{
     width: 100vw;
     height: 100vh;
     z-index: 9999;
-      
     display: flex;
 }
 
@@ -251,7 +240,6 @@ main #saiba-mais #close{
 }
 
 #splash-screen #splash-right .handle {
-    
     width: 20px;
     height: 100px;
     border: 3px solid var(--primary);
@@ -259,7 +247,6 @@ main #saiba-mais #close{
 }
 
 #splash-screen #splash-left .handle {
-    
     width: 20px;
     height: 100px;
     border: 3px solid var(--primary);

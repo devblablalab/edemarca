@@ -1,3 +1,4 @@
-$('.cta').on("click", function(){
-    $('#saiba-mais').toggleClass("active")
-});
+export function toggleLearnMore(e) {
+    e.preventDefault();
+    $('#saiba-mais').toggleClass("active");
+}
