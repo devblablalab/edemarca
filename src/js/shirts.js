@@ -5,22 +5,39 @@ function shirtsHasInvalidOptions(options) {
     return !options || typeof options !== 'object' || defaultOptions.every(option => options.hasOwnProperty(option)) === false;
 }
 
+function updateContainerPosition($container, deltaX, scrollSpeed) {
+    const direction = deltaX > 0 ? '-=' : '+=';
+    $container.css('left', `${direction}${scrollSpeed}px`);
+}
+
+function centerActiveShirtInfo(id) {
+    const $activeShirtInfo = $(`[data-shirt-info-key="${id}"].active`);
+    const $arrowInfoIcon = $('#arrow-info-icon');
+    const $shirtsInfoContainer = $('.shirts-info .shirts-container-info');
+
+    $activeShirtInfo.addClass('active');
+    $activeShirtInfo[0].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+
+    const arrowIconRect = $arrowInfoIcon[0].getBoundingClientRect();
+    const activeShirtRect = $activeShirtInfo[0].getBoundingClientRect();
+    const deltaWidth = (activeShirtRect.width - arrowIconRect.width) / 2;
+
+    $shirtsInfoContainer.css('transform', `translateX(-${deltaWidth}px)`);
+}
+
 function activeShirtInfo(id) {
     const $shirtInfoElements = $('[data-shirt-info-key]');
-    const index = $shirtInfoElements.index($(`[data-shirt-info-key="${id}"]`));
-
     $shirtInfoElements.removeClass('active active-disabled');
 
     $(`[data-shirt-info-key="${id}"]`).addClass('active');
-
-    $shirtInfoElements.eq(index - 1).addClass('active-disabled');
-    $shirtInfoElements.eq(index + 1).addClass('active-disabled');
+    centerActiveShirtInfo(id);
 }
 
-function updateShirtsLimitStates($container) {
-    const $lastShirt = $container.find('.shirt:last');
+function updateShirtsLimitStates($shirtsContainer) {
+    const $lastShirt = $shirtsContainer.find('.shirt:last');
     const lastVal = convertPxToInt($lastShirt.css('left'));
-    const currentVal = convertPxToInt($container.css('left'));
+    const currentVal = convertPxToInt($shirtsContainer.css('left'));
+    const $shirtsInfoContainer = $('.shirts-info .shirts-container-info');
     const $contentToShowFirst = $('.show-first');
     const $contentToShowAfter = $('.show-after');
 
@@ -28,11 +45,9 @@ function updateShirtsLimitStates($container) {
     $contentToShowAfter.removeClass('d-none');
 
     if(currentVal > 0) {
-        $container.css('left','0px');
-        $contentToShowFirst.removeClass('d-none');
-        $contentToShowAfter.addClass('d-none');
+        $shirtsContainer.css('left','0px');
     } else if(Math.abs(currentVal) >= lastVal) {
-        $container.css('left',`-${lastVal - 2}px`)
+        $shirtsContainer.css('left',`-${lastVal - 2}px`)
     }
 }
 
@@ -65,6 +80,7 @@ function selectCurrentShirtAndActiveInfo() {
 
 function applySlideEvents($container) {
     if ($container.length) {
+        const $shirtsInfoContainer = $('.shirts-info .shirts-container-info');
         let scrollSpeed = 40;
         let isDragging = false;
         let startEventX = 0;
@@ -79,9 +95,8 @@ function applySlideEvents($container) {
             if (isDragging) {
                 let endEventX = event.type === 'mousemove' ? event.clientX : event.touches[0].clientX;
                 let deltaX = startEventX - endEventX;
-        
-                $container.css('left', (deltaX > 0 ? '-=' : '+=') + scrollSpeed + 'px');
-        
+
+                updateContainerPosition($container, deltaX,scrollSpeed);
                 updateShirtsLimitStates($container);
                 startEventX = endEventX;
                 selectCurrentShirtAndActiveInfo();
@@ -95,7 +110,8 @@ function applySlideEvents($container) {
         $(window).on('wheel', function (event) {
             event.preventDefault();
             let delta = event.originalEvent.deltaY;
-            $container.css('left', (delta > 0 ? '-=' : '+=') + scrollSpeed + 'px');
+
+            updateContainerPosition($container, delta,scrollSpeed);
             updateShirtsLimitStates($container);
             selectCurrentShirtAndActiveInfo();
         });
@@ -134,8 +150,9 @@ export function renderShirts(data) {
 
     $shirts.append(data.map((item,index) => {
         shirtOptions.id = item.id;
+
         if(index > 0) {
-            shirtOptions.left = parseInt(shirtOptions.left.replace('px','')) + 40 + 'px';    
+            shirtOptions.left = convertPxToInt(shirtOptions.left) + 40 + 'px';
             shirtOptions.zIndex = shirtOptions.zIndex - 1;
         }
         return getShirtHtml(shirtOptions);

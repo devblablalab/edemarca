@@ -18,7 +18,9 @@
     }
 
     main .shirts-info .shirt-info {
-        font-size: 4rem;
+        min-width: 22rem;
+        gap: 1rem;
+        font-size: 3.2rem;
     }
     
     .main-footer .blablalab-logo:hover {
