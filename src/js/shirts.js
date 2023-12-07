@@ -10,28 +10,35 @@ function updateContainerPosition($container, deltaX, scrollSpeed) {
     $container.css('left', `${direction}${scrollSpeed}px`);
 }
 
+function activateScrollView($activeItem, $containerStart, $containerSec) {
+    $containerSec.removeClass('hide');
+    $containerStart.addClass('hide');
+    $activeItem[1].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+    $activeItem[1].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+}
+
 function centerActiveShirtInfo(id) {
     const $shirtsInfoContainerStart = $('.shirts-info .shirts-container-info.start');
     const $shirtsInfoContainerNotStart = $('.shirts-info .shirts-container-info.not-start');
     const $activeShirtInfo = $(`[data-shirt-info-key="${id}"].active`);
     const shirtsToCheck = [];
 
-    for (let index = 1; index <= 3; index++) {
-        shirtsToCheck.push($shirtsInfoContainerStart[0].querySelector(`.shirt-info:nth-child(${index})`));
+    if(window.matchMedia("(min-width: 768px)").matches) {
+        for (let index = 1; index <= 3; index++) {
+            shirtsToCheck.push($shirtsInfoContainerStart[0].querySelector(`.shirt-info:nth-child(${index})`));
+        }
+    
+        $activeShirtInfo.addClass('active');
+    
+        if ($.inArray($activeShirtInfo[0],shirtsToCheck) === -1) {
+            return activateScrollView($activeShirtInfo,$shirtsInfoContainerStart, $shirtsInfoContainerNotStart);
+        }
+        $shirtsInfoContainerStart.removeClass('hide');
+        return $shirtsInfoContainerNotStart.addClass('hide');
+    } else {
+        activateScrollView($activeShirtInfo,$shirtsInfoContainerStart, $shirtsInfoContainerNotStart);
     }
-
-    $activeShirtInfo.addClass('active');
-
-    if ($.inArray($activeShirtInfo[0],shirtsToCheck) === -1) {
-        $shirtsInfoContainerNotStart.removeClass('hide');
-        $shirtsInfoContainerStart.addClass('hide');
-        return $activeShirtInfo[1].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
-    }
-
-    $shirtsInfoContainerStart.removeClass('hide');
-    return $shirtsInfoContainerNotStart.addClass('hide');
 }
-
 
 function activeShirtInfo(id) {
     const $shirtInfoElements = $('[data-shirt-info-key]');
