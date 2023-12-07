@@ -11,13 +11,27 @@ function updateContainerPosition($container, deltaX, scrollSpeed) {
 }
 
 function centerActiveShirtInfo(id) {
+    const $shirtsInfoContainerStart = $('.shirts-info .shirts-container-info.start');
+    const $shirtsInfoContainerNotStart = $('.shirts-info .shirts-container-info.not-start');
     const $activeShirtInfo = $(`[data-shirt-info-key="${id}"].active`);
-    const $arrowInfoIcon = $('#arrow-info-icon');
-    const $shirtsInfoContainer = $('.shirts-info .shirts-container-info');
+    const shirtsToCheck = [];
+
+    for (let index = 1; index <= 3; index++) {
+        shirtsToCheck.push($shirtsInfoContainerStart[0].querySelector(`.shirt-info:nth-child(${index})`));
+    }
 
     $activeShirtInfo.addClass('active');
-    $activeShirtInfo[0].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+
+    if ($.inArray($activeShirtInfo[0],shirtsToCheck) === -1) {
+        $shirtsInfoContainerNotStart.removeClass('hide');
+        $shirtsInfoContainerStart.addClass('hide');
+        return $activeShirtInfo[1].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+    }
+
+    $shirtsInfoContainerStart.removeClass('hide');
+    return $shirtsInfoContainerNotStart.addClass('hide');
 }
+
 
 function activeShirtInfo(id) {
     const $shirtInfoElements = $('[data-shirt-info-key]');
@@ -159,13 +173,14 @@ export function renderShirts(data) {
 
     $shirtsInfoContainer.append(data.map((item,index) => {
         return `
-            <a href="${item.link}" target="_blank" data-shirt-info-key="${item.id}" class="shirt-info ${index == 0 ? 'active' : ''}">
+            <a href="${item.link}" target="_blank"
+            data-shirt-info-key="${item.id}" class="shirt-info ${index == 0 ? 'active' : ''}">
                 <p class="id-info">${item.id}.</p>
                 <p>${item.brand.trim()}</p>
                 <strong>${item.price.trim()}</strong>        
             </a>
         `
     }).join(''));
-
+    
     applySlideEvents($shirts);
 }  

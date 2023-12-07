@@ -156,6 +156,10 @@ main .shirts-info .container {
     overflow-x: auto;
 }
 
+main .shirts-info .container.hide {
+    display: none !important;
+}
+
 main .shirts-info .shirt-info {
     min-width: 20rem;
     flex-direction: column;
