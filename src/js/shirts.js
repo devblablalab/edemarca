@@ -17,12 +17,6 @@ function centerActiveShirtInfo(id) {
 
     $activeShirtInfo.addClass('active');
     $activeShirtInfo[0].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
-
-    const arrowIconRect = $arrowInfoIcon[0].getBoundingClientRect();
-    const activeShirtRect = $activeShirtInfo[0].getBoundingClientRect();
-    const deltaWidth = (activeShirtRect.width - arrowIconRect.width) / 2;
-
-    $shirtsInfoContainer.css('transform', `translateX(-${deltaWidth}px)`);
 }
 
 function activeShirtInfo(id) {
@@ -37,17 +31,19 @@ function updateShirtsLimitStates($shirtsContainer) {
     const $lastShirt = $shirtsContainer.find('.shirt:last');
     const lastVal = convertPxToInt($lastShirt.css('left'));
     const currentVal = convertPxToInt($shirtsContainer.css('left'));
-    const $shirtsInfoContainer = $('.shirts-info .shirts-container-info');
+    const $shirtsInfos = $('.shirts-info .shirts-container-info .shirt-info');
     const $contentToShowFirst = $('.show-first');
     const $contentToShowAfter = $('.show-after');
 
     $contentToShowFirst.addClass('d-none');
     $contentToShowAfter.removeClass('d-none');
-
+    
     if(currentVal > 0) {
         $shirtsContainer.css('left','0px');
+    } else if(currentVal <= 0 && Math.abs(currentVal) < lastVal ) {
+        // aqui
     } else if(Math.abs(currentVal) >= lastVal) {
-        $shirtsContainer.css('left',`-${lastVal - 2}px`)
+        $shirtsContainer.css('left',`-${lastVal - 5}px`)
     }
 }
 
@@ -86,12 +82,14 @@ function applySlideEvents($container) {
         let startEventX = 0;
 
         $container.on('mousedown touchstart', function (event) {
+            event.preventDefault();
             isDragging = true;
             startEventX = event.type === 'mousedown' ? event.clientX : event.touches[0].clientX;
             scrollSpeed = event.type === 'mousedown' ? 40 : 80;
         });
         
         $container.on('mousemove touchmove', function (event) {
+            event.preventDefault();
             if (isDragging) {
                 let endEventX = event.type === 'mousemove' ? event.clientX : event.touches[0].clientX;
                 let deltaX = startEventX - endEventX;
@@ -103,7 +101,8 @@ function applySlideEvents($container) {
             }
         });
         
-        $container.on('mouseup mouseleave touchend', function () {
+        $container.on('mouseup mouseleave touchend', function (event) {
+            event.preventDefault();
             isDragging = false;
         });
 
