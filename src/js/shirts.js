@@ -6,7 +6,7 @@ function shirtsHasInvalidOptions(options) {
 }
 
 function updateContainerPosition($container, deltaX, scrollSpeed) {
-    const direction = deltaX > 0 ? '-=' : '+=';
+    const direction = deltaX > 0 ? '+=' : '-=';
     $container.css('left', `${direction}${scrollSpeed}px`);
 }
 
@@ -99,21 +99,24 @@ function applySlideEvents($container) {
         let scrollSpeed = 40;
         let isDragging = false;
         let startEventX = 0;
+        let totalDeltaX = 0;
 
         $container.on('mousedown touchstart', function (event) {
             event.preventDefault();
             isDragging = true;
             startEventX = event.type === 'mousedown' ? event.clientX : event.touches[0].clientX;
             scrollSpeed = event.type === 'mousedown' ? 40 : 80;
+            totalDeltaX = 0;
         });
         
         $container.on('mousemove touchmove', function (event) {
             event.preventDefault();
             if (isDragging) {
                 let endEventX = event.type === 'mousemove' ? event.clientX : event.touches[0].clientX;
-                let deltaX = startEventX - endEventX;
+                let deltaX = endEventX - startEventX;
 
-                updateContainerPosition($container, deltaX,scrollSpeed);
+                totalDeltaX += Math.abs(deltaX);
+                updateContainerPosition($container, deltaX, scrollSpeed * (1 + totalDeltaX / 800));
                 updateShirtsLimitStates($container);
                 startEventX = endEventX;
                 selectCurrentShirtAndActiveInfo();
@@ -129,7 +132,7 @@ function applySlideEvents($container) {
             event.preventDefault();
             let delta = event.originalEvent.deltaY;
 
-            updateContainerPosition($container, delta,scrollSpeed);
+            updateContainerPosition($container, delta, scrollSpeed);
             updateShirtsLimitStates($container);
             selectCurrentShirtAndActiveInfo();
         });
