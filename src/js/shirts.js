@@ -22,21 +22,33 @@ function centerActiveShirtInfo(id) {
     const $activeShirtInfo = $(`[data-shirt-info-key="${id}"].active`);
     const shirtsToCheck = [];
 
-    if(window.matchMedia("(min-width: 768px)").matches) {
-        for (let index = 1; index <= 3; index++) {
-            shirtsToCheck.push($shirtsInfoContainerStart[0].querySelector(`.shirt-info:nth-child(${index})`));
-        }
-    
-        $activeShirtInfo.addClass('active');
-    
-        if ($.inArray($activeShirtInfo[0],shirtsToCheck) === -1) {
-            return activateScrollView($activeShirtInfo,$shirtsInfoContainerStart, $shirtsInfoContainerNotStart);
-        }
-        $shirtsInfoContainerStart.removeClass('hide');
-        return $shirtsInfoContainerNotStart.addClass('hide');
-    } else {
-        activateScrollView($activeShirtInfo,$shirtsInfoContainerStart, $shirtsInfoContainerNotStart);
+    for (let index = 1; index <= 3; index++) {
+        shirtsToCheck.push($shirtsInfoContainerStart[0].querySelector(`.shirt-info:nth-child(${index})`));
     }
+
+    $activeShirtInfo.addClass('active');
+
+    if ($.inArray($activeShirtInfo[0],shirtsToCheck) === -1) {
+        return activateScrollView($activeShirtInfo,$shirtsInfoContainerStart, $shirtsInfoContainerNotStart);
+    }
+    $shirtsInfoContainerStart.removeClass('hide');
+    return $shirtsInfoContainerNotStart.addClass('hide');
+
+    // if(window.matchMedia("(min-width: 768px)").matches) {
+    //     for (let index = 1; index <= 3; index++) {
+    //         shirtsToCheck.push($shirtsInfoContainerStart[0].querySelector(`.shirt-info:nth-child(${index})`));
+    //     }
+    
+    //     $activeShirtInfo.addClass('active');
+    
+    //     if ($.inArray($activeShirtInfo[0],shirtsToCheck) === -1) {
+    //         return activateScrollView($activeShirtInfo,$shirtsInfoContainerStart, $shirtsInfoContainerNotStart);
+    //     }
+    //     $shirtsInfoContainerStart.removeClass('hide');
+    //     return $shirtsInfoContainerNotStart.addClass('hide');
+    // } else {
+    //     activateScrollView($activeShirtInfo,$shirtsInfoContainerStart, $shirtsInfoContainerNotStart);
+    // }
 }
 
 function activeShirtInfo(id) {
