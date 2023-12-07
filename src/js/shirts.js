@@ -14,7 +14,6 @@ function activateScrollView($activeItem, $containerStart, $containerSec) {
     $containerSec.removeClass('hide');
     $containerStart.addClass('hide');
     $activeItem[1].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
-    $activeItem[1].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
 }
 
 function centerActiveShirtInfo(id) {
@@ -97,7 +96,6 @@ function selectCurrentShirtAndActiveInfo() {
 
 function applySlideEvents($container) {
     if ($container.length) {
-        const $shirtsInfoContainer = $('.shirts-info .shirts-container-info');
         let scrollSpeed = 40;
         let isDragging = false;
         let startEventX = 0;
