@@ -16,20 +16,16 @@ export function getAjaxOptionsJson(url, method = 'GET', data = null, headers = {
     return options;
 }
 
-export function isDesktopDevice() {
-    const userAgent = navigator.userAgent;
-    const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-
-    return !mobileRegex.test(userAgent);
+function screenMaxMatches(size) {
+    return window.matchMedia(`(max-width:${size}px)`).matches;
 }
 
-export function getCenterRect(elementRect) {
-    return (elementRect.left + elementRect.right) / 2
+export function isTabletScreen() {
+    return screenMaxMatches(1024);
 }
 
-export function convertPxToInt(pxString) {
-    if(!pxString.includes('px')) return pxString;
-    return parseInt(pxString.replace('px',''));
+export function isMobileScreen() {
+    return screenMaxMatches(767);
 }
 
 export function triggerSplashScreen() {

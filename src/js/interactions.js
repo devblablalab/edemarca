@@ -1,4 +1,7 @@
 export function toggleLearnMore(e) {
     e.preventDefault();
-    $('#saiba-mais').toggleClass("active");
+    const targetId = this.dataset.targetId;
+    if(targetId) {
+        $(`${this.dataset.targetId}`).toggleClass('active');
+    }
 }

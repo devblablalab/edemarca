@@ -4,7 +4,7 @@ import { toggleLearnMore } from './interactions.js';
 import { triggerSplashScreen } from './utils.js';
 
 $(document).ready(function() {
-    const $ctaLearnMore = $('.cta');
+    const $menuItems = $('.menu-item');
 
     async function initShirts() {
       const data = await ajaxPromiseShirtsData();
@@ -13,7 +13,7 @@ $(document).ready(function() {
     }
     initShirts();
 
-    $ctaLearnMore.on('click',toggleLearnMore);
+    $menuItems.on('click',toggleLearnMore);
 });
 
 
