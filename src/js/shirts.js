@@ -36,8 +36,6 @@ function initializeShirtsSlider() {
         freeMode: true
     };
 
-    console.log(isTabletScreen())
-
     if(!isMobileScreen()) {
         swiperOptions.slidesPerView = isTabletScreen() ? 3 : 4;
         swiperOptions.spaceBetween = isTabletScreen() ? 40 : 80;
