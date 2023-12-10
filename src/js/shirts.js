@@ -1,135 +1,80 @@
-import { getCenterRect, convertPxToInt } from "./utils.js";
+import { isMobileScreen, isTabletScreen } from "./utils.js";
 
-function shirtsHasInvalidOptions(options) {
-    const defaultOptions = ['id','left','zIndex'];
-    return !options || typeof options !== 'object' || defaultOptions.every(option => options.hasOwnProperty(option)) === false;
-}
+function getMiddleIndex(items) {
+    const container = document.querySelector('.shirts-container');
+    const containerRect = container.getBoundingClientRect();
+    const middleX = containerRect.left + containerRect.width / 2;
 
-function updateContainerPosition($container, deltaX, scrollSpeed) {
-    const direction = deltaX > 0 ? '-=' : '+=';
-    $container.css('left', `${direction}${scrollSpeed}px`);
-}
+    let minDistance = Infinity;
+    let middleIndex = 0;
 
-function centerActiveShirtInfo(id) {
-    const $activeShirtInfo = $(`[data-shirt-info-key="${id}"].active`);
-    const $arrowInfoIcon = $('#arrow-info-icon');
-    const $shirtsInfoContainer = $('.shirts-info .shirts-container-info');
+    items.forEach((item, index) => {
+        const itemRect = item.getBoundingClientRect();
+        const itemX = itemRect.left + itemRect.width / 2;
 
-    $activeShirtInfo.addClass('active');
-    $activeShirtInfo[0].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
-}
-
-function activeShirtInfo(id) {
-    const $shirtInfoElements = $('[data-shirt-info-key]');
-    $shirtInfoElements.removeClass('active active-disabled');
-
-    $(`[data-shirt-info-key="${id}"]`).addClass('active');
-    centerActiveShirtInfo(id);
-}
-
-function updateShirtsLimitStates($shirtsContainer) {
-    const $lastShirt = $shirtsContainer.find('.shirt:last');
-    const lastVal = convertPxToInt($lastShirt.css('left'));
-    const currentVal = convertPxToInt($shirtsContainer.css('left'));
-    const $shirtsInfos = $('.shirts-info .shirts-container-info .shirt-info');
-    const $contentToShowFirst = $('.show-first');
-    const $contentToShowAfter = $('.show-after');
-
-    $contentToShowFirst.addClass('d-none');
-    $contentToShowAfter.removeClass('d-none');
-    
-    if(currentVal > 0) {
-        $shirtsContainer.css('left','0px');
-    } else if(currentVal <= 0 && Math.abs(currentVal) < lastVal ) {
-        // aqui
-    } else if(Math.abs(currentVal) >= lastVal) {
-        $shirtsContainer.css('left',`-${lastVal - 5}px`)
-    }
-}
-
-function selectCurrentShirtAndActiveInfo() {
-    const $shirts = $(`.shirts .shirt`);
-    const $arrowIcon = $('#arrow-info-icon');
-
-    let minDistance = Number.MAX_SAFE_INTEGER;
-    let $closestShirt;
-
-    $shirts.each(function() {
-        const shirtRect = this.getBoundingClientRect();
-        const arrowIconRect = $arrowIcon[0].getBoundingClientRect();
-        
-        const shirtCenterX = getCenterRect(shirtRect);
-        const arrowIconCenterX = getCenterRect(arrowIconRect);
-
-        const distance = Math.abs(shirtCenterX - arrowIconCenterX);
+        const distance = Math.abs(middleX - itemX);
 
         if (distance < minDistance) {
             minDistance = distance;
-            $closestShirt = $(this);
+            middleIndex = index;
         }
     });
 
-    if ($closestShirt && $closestShirt.length) {
-        activeShirtInfo($closestShirt.data('id'));
-    }
+    return middleIndex;
 }
 
-function applySlideEvents($container) {
-    if ($container.length) {
-        const $shirtsInfoContainer = $('.shirts-info .shirts-container-info');
-        let scrollSpeed = 40;
-        let isDragging = false;
-        let startEventX = 0;
-
-        $container.on('mousedown touchstart', function (event) {
-            event.preventDefault();
-            isDragging = true;
-            startEventX = event.type === 'mousedown' ? event.clientX : event.touches[0].clientX;
-            scrollSpeed = event.type === 'mousedown' ? 40 : 80;
-        });
-        
-        $container.on('mousemove touchmove', function (event) {
-            event.preventDefault();
-            if (isDragging) {
-                let endEventX = event.type === 'mousemove' ? event.clientX : event.touches[0].clientX;
-                let deltaX = startEventX - endEventX;
-
-                updateContainerPosition($container, deltaX,scrollSpeed);
-                updateShirtsLimitStates($container);
-                startEventX = endEventX;
-                selectCurrentShirtAndActiveInfo();
-            }
-        });
-        
-        $container.on('mouseup mouseleave touchend', function (event) {
-            event.preventDefault();
-            isDragging = false;
-        });
-
-        $(window).on('wheel', function (event) {
-            event.preventDefault();
-            let delta = event.originalEvent.deltaY;
-
-            updateContainerPosition($container, delta,scrollSpeed);
-            updateShirtsLimitStates($container);
-            selectCurrentShirtAndActiveInfo();
-        });
-    }
+function updateActiveShirt(items) {
+    const middleIndex = getMiddleIndex(items);
+    items.forEach(item => item.classList.remove('active-shirt'));
+    items[middleIndex].classList.add('active-shirt');
 }
 
-export function getShirtHtml(options) {
-    if(shirtsHasInvalidOptions(options)) return '';
+function initializeShirtsSlider() {
+    let swiperOptions = {
+        slidesPerView: 'auto',
+        spaceBetween: 40,
+        freeMode: true
+    };
 
-    const { id,left, zIndex } = options;
+    console.log(isTabletScreen())
+
+    if(!isMobileScreen()) {
+        swiperOptions.slidesPerView = isTabletScreen() ? 3 : 4;
+        swiperOptions.spaceBetween = isTabletScreen() ? 40 : 80;
+        swiperOptions.mousewheel = {
+            invert: true,
+        }
+    }
+
+    const shirtsSwiper = new Swiper('.shirts-container', swiperOptions);
+
+    const swiperItems = document.querySelectorAll('.shirts-container .swiper-slide');
+    shirtsSwiper.on('slideChange', () => updateActiveShirt(swiperItems));
+    shirtsSwiper.on('touchMove', () => updateActiveShirt(swiperItems));
+}
+
+export function getShirtHtml(shirtData) {
+    const { id, brand, price } = shirtData;
 
     return `
-        <div data-id="${id}" class="shirt" style="left: ${left}; z-index: ${zIndex}">
-            <svg viewBox="0 0 864 842" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M858.19 331.27L725.12 464.34C722.98 466.48 719.51 466.48 717.37 464.34L685.22 432.19C681.77 428.74 675.87 431.18 675.87 436.06V832.11C675.87 835.14 673.42 837.59 670.39 837.59H194.51C191.48 837.59 189.03 835.14 189.03 832.11V434.44C189.03 429.56 183.13 427.12 179.68 430.57L145.92 464.33C143.78 466.47 140.31 466.47 138.17 464.33L5.1 331.27C2.96 329.13 2.96 325.66 5.1 323.52L187.42 141.2C188.45 140.17 189.84 139.6 191.29 139.6H291.06C294.02 139.6 296.42 141.95 296.53 144.91C297.48 169.82 305.13 193.01 317.75 212.73C327.96 228.75 341.46 242.47 357.28 252.98C378.81 267.29 404.65 275.63 432.45 275.63C460.25 275.63 485.31 267.55 506.65 253.62C523.35 242.74 537.52 228.27 548.05 211.32C560.12 191.91 567.44 169.24 568.37 144.92C568.48 141.96 570.88 139.61 573.84 139.61H672C673.45 139.61 674.85 140.19 675.87 141.21L858.18 323.53C860.32 325.67 860.32 329.14 858.18 331.28L858.19 331.27Z" fill="white"/>
-                <path d="M670.4 841.09H194.51C189.56 841.09 185.53 837.06 185.53 832.11V434.44C185.53 433.25 184.68 432.77 184.31 432.61C183.94 432.46 183 432.19 182.15 433.04L148.39 466.8C146.7 468.5 144.44 469.43 142.04 469.43C139.64 469.43 137.39 468.5 135.69 466.8L2.62 333.74C-0.880005 330.24 -0.880005 324.54 2.62 321.04L184.95 138.72C186.65 137.02 188.9 136.09 191.3 136.09H291.07C295.91 136.09 299.85 139.9 300.04 144.77C300.94 168.26 308.09 191.11 320.71 210.84C330.57 226.31 343.89 239.87 359.22 250.06C380.93 264.49 406.25 272.12 432.45 272.12C458.65 272.12 483.24 264.7 504.74 250.68C520.94 240.13 534.89 225.88 545.08 209.46C557.15 190.05 564 167.68 564.88 144.77C565.07 139.9 569.01 136.09 573.85 136.09H672.01C674.41 136.09 676.66 137.02 678.36 138.72L860.67 321.04C864.17 324.54 864.17 330.24 860.67 333.74L727.6 466.81C725.9 468.51 723.65 469.44 721.25 469.44C718.85 469.44 716.6 468.51 714.9 466.81L682.75 434.66C681.91 433.82 680.96 434.08 680.59 434.23C680.22 434.38 679.37 434.86 679.37 436.06V832.11C679.37 837.06 675.34 841.09 670.39 841.09H670.4ZM183.54 425.46C184.7 425.46 185.87 425.69 186.99 426.15C190.36 427.54 192.53 430.8 192.53 434.44V832.11C192.53 833.2 193.42 834.09 194.51 834.09H670.41C671.5 834.09 672.39 833.2 672.39 832.11V436.06C672.39 432.42 674.56 429.16 677.93 427.77C681.3 426.37 685.14 427.14 687.71 429.71L719.86 461.86C720.61 462.61 721.91 462.61 722.66 461.86L855.73 328.79C856.5 328.02 856.5 326.76 855.73 325.99L673.42 143.67C673.05 143.3 672.55 143.09 672.02 143.09H573.86C572.79 143.09 571.93 143.94 571.88 145.04C570.95 169.16 563.75 192.72 551.03 213.16C540.3 230.43 525.61 245.44 508.57 256.54C485.94 271.31 459.62 279.12 432.46 279.12C405.3 279.12 378.21 271.09 355.35 255.89C338.98 245.01 325.34 231.12 314.81 214.61C301.52 193.83 294 169.78 293.05 145.04C293.01 143.95 292.14 143.1 291.08 143.1H191.31C190.79 143.1 190.28 143.31 189.91 143.68L7.57 326C6.8 326.77 6.8 328.03 7.57 328.8L140.64 461.87C141.39 462.62 142.69 462.62 143.44 461.87L177.2 428.11C178.92 426.39 181.21 425.48 183.54 425.48V425.46Z" fill="#666666"/>
-                <path d="M568.47 136.09H296.43V143.09H568.47V136.09Z" fill="#666666"/>
-                <path d="M435.95 141.2H428.95V106.1C428.95 96.68 436.62 89.01 446.04 89.01C463.27 89.01 477.29 74.99 477.29 57.76V35.76C477.29 19.94 464.42 7.07999 448.61 7.07999C432.8 7.07999 419.93 19.95 419.93 35.76V36.68H412.93V35.76C412.93 16.09 428.94 0.0799866 448.61 0.0799866C468.28 0.0799866 484.29 16.09 484.29 35.76V57.76C484.29 78.85 467.13 96.01 446.04 96.01C440.48 96.01 435.95 100.54 435.95 106.1V141.2Z" fill="#666666"/>
-            </svg>
+        <div data-id="${id}" class="shirt swiper-slide">
+            <div class="content">
+                <div class="header">
+                    <p>${id}.</p>
+                    <button type="button">Avaliações</button>
+                </div>
+                <svg viewBox="0 0 471 382" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M369.16 381.33H102.72V158.15L78.79 182.08L0.469971 103.76L103.59 0.640137H163.82V2.14014C163.82 15.9401 167.73 29.3401 175.12 40.9001C180.48 49.3201 187.73 56.6901 196.07 62.2401C207.88 70.0901 221.66 74.2401 235.91 74.2401C250.16 74.2401 263.54 70.2101 275.24 62.5701C284.05 56.8301 291.64 49.0801 297.19 40.1501C304.27 28.7601 308.01 15.6201 308.01 2.14014V0.640137H309.51H367.38L368.69 1.95013L470.5 103.76L392.18 182.08L369.13 159.03V381.33H369.16ZM105.72 378.33H366.16V151.78L392.21 177.83L466.28 103.76L366.17 3.64014H311.03C310.76 17.1501 306.88 30.3001 299.77 41.7401C293.99 51.0401 286.09 59.1101 276.91 65.0901C264.73 73.0401 250.56 77.2501 235.94 77.2501C221.32 77.2501 206.74 72.9301 194.43 64.7401C185.62 58.8901 178.27 51.4101 172.61 42.5201C165.18 30.9001 161.13 17.4901 160.85 3.64014H104.84L4.71997 103.76L78.79 177.83L105.72 150.9V378.32V378.33Z" fill="#666666"/>
+                </svg> 
+            </div>
+            <div class="infos">
+                <p class="brand">${brand}</p>
+                <p class="price">R$ 
+                    <span>
+                        ${Number.isInteger(price) ? price.toString().replace('.', ',') : price.toFixed(2).replace('.', ',')}
+                    </span>
+                </p>
+            </div>     
         </div>
     `;
 }
@@ -139,33 +84,23 @@ export function renderShirts(data) {
 
     const $shirtsContainer = $('.shirts-container');
     const $shirts = $shirtsContainer.find('.shirts');
-    const $shirtsInfo = $('.shirts-info');
-    const $shirtsInfoContainer = $shirtsInfo.find('.container');
 
-    const shirtOptions = {
-        left: '0px',
-        zIndex: 999
-    };
-
-    $shirts.append(data.map((item,index) => {
-        shirtOptions.id = item.id;
-
-        if(index > 0) {
-            shirtOptions.left = convertPxToInt(shirtOptions.left) + 40 + 'px';
-            shirtOptions.zIndex = shirtOptions.zIndex - 1;
-        }
-        return getShirtHtml(shirtOptions);
-    }).join(''));
-
-    $shirtsInfoContainer.append(data.map((item,index) => {
-        return `
-            <a href="${item.link}" target="_blank" data-shirt-info-key="${item.id}" class="shirt-info ${index == 0 ? 'active' : ''}">
-                <p class="id-info">${item.id}.</p>
-                <p>${item.brand.trim()}</p>
-                <strong>${item.price.trim()}</strong>        
-            </a>
-        `
-    }).join(''));
-
-    applySlideEvents($shirts);
+    $shirts.append(`
+        <div class="item-space"></div>
+        <div class="shirt swiper-slide">
+            <div class="content">
+                <svg viewBox="0 0 471 382" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M369.16 381.33H102.72V158.15L78.79 182.08L0.469971 103.76L103.59 0.640137H163.82V2.14014C163.82 15.9401 167.73 29.3401 175.12 40.9001C180.48 49.3201 187.73 56.6901 196.07 62.2401C207.88 70.0901 221.66 74.2401 235.91 74.2401C250.16 74.2401 263.54 70.2101 275.24 62.5701C284.05 56.8301 291.64 49.0801 297.19 40.1501C304.27 28.7601 308.01 15.6201 308.01 2.14014V0.640137H309.51H367.38L368.69 1.95013L470.5 103.76L392.18 182.08L369.13 159.03V381.33H369.16ZM105.72 378.33H366.16V151.78L392.21 177.83L466.28 103.76L366.17 3.64014H311.03C310.76 17.1501 306.88 30.3001 299.77 41.7401C293.99 51.0401 286.09 59.1101 276.91 65.0901C264.73 73.0401 250.56 77.2501 235.94 77.2501C221.32 77.2501 206.74 72.9301 194.43 64.7401C185.62 58.8901 178.27 51.4101 172.61 42.5201C165.18 30.9001 161.13 17.4901 160.85 3.64014H104.84L4.71997 103.76L78.79 177.83L105.72 150.9V378.32V378.33Z" fill="#666666"/>
+                </svg> 
+            </div>
+            <div class="infos">
+                <div class="initial">
+                    <p>Arraste para o lado</p>
+                </div>
+            </div>     
+        </div>
+    `);	
+    $shirts.append(data.map((item,index) => getShirtHtml(item)).join(''));
+    
+    initializeShirtsSlider();
 }  
