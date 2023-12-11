@@ -34,10 +34,10 @@ function handleItemSpaceVisibility(swiper, itemSpace) {
     const isItemSpaceVisible = isElementInViewport(firstSlide);
 
     if (isItemSpaceVisible) {
-        itemSpace.classList.remove('on-hide');
-    } else {
-        itemSpace.classList.add('on-hide');
+        return itemSpace.classList.remove('on-hide');
     }
+
+    itemSpace.classList.add('on-hide');
 }
 
 function initializeShirtsSlider() {
