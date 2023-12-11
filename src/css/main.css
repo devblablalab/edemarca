@@ -206,7 +206,7 @@ main #saiba-mais #close {
    position: absolute;
    top: 0;
    right: 0;
-   padding: .5em;
+   padding: 1em;
    border-bottom: 2px solid var(--primary);
    border-left: 2px solid var(--primary);
    font-size: 1.5em;
