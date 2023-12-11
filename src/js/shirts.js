@@ -34,9 +34,9 @@ function handleItemSpaceVisibility(swiper, itemSpace) {
     const isItemSpaceVisible = isElementInViewport(firstSlide);
 
     if (isItemSpaceVisible) {
-        itemSpace.classList.remove('d-none');
+        itemSpace.classList.remove('on-hide');
     } else {
-        itemSpace.classList.add('d-none');
+        itemSpace.classList.add('on-hide');
     }
 }
 

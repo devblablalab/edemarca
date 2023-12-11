@@ -87,6 +87,11 @@ main .shirts-container .item-space {
     margin-right: calc(50vw - 13rem);
 }
 
+main .shirts-container .item-space.on-hide {
+    margin-left: -13rem;
+    margin-right: 0;
+}
+
 main .shirts-container .shirt {
     min-width: 23rem;
     max-width: 23rem;
