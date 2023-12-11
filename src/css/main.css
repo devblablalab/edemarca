@@ -110,7 +110,7 @@ main .shirts-container .shirt.active-shirt .content {
     background-color: #f4f4f4;
 }
 
-main .shirts-container .shirt svg {
+main .shirts-container .shirt svg.shirt-svg {
     fill: var(--light);
 }
 
@@ -164,7 +164,7 @@ main .shirts-container .shirt .infos .price span {
     font-size: 2.4rem;
 }
 
-main .shirts-container .shirt svg {
+main .shirts-container .shirt svg.shirt-svg {
     width: 18rem;
     height: 18rem;
 }

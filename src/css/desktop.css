@@ -62,7 +62,7 @@
         font-size: 3rem;
     }
 
-    main .shirts-container .shirt svg {
+    main .shirts-container .shirt svg.shirt-svg {
         width: 20rem;
         height: 20rem;
     }
@@ -75,7 +75,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-    main .shirts-container .shirt svg {
+    main .shirts-container .shirt svg.shirt-svg {
         width: 26rem;
         height: 26rem;
     }
