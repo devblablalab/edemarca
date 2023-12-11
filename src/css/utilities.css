@@ -11,3 +11,17 @@
 .middle-ml {
     margin-left: var(--margin-middle-shirts);
 }
+
+.blablalab-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blablalab-logo > div {
+    width: 10rem;
+    height: 6rem;
+    background-image: url('../assets/blablalab.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

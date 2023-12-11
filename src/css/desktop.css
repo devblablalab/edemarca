@@ -3,6 +3,10 @@
         padding: 1rem 4rem;
     }
 
+    .main-header {
+        z-index: 999;
+    }
+
     .main-header .container .brand {
         width: 100%;
         max-width: 15rem;
@@ -71,6 +75,12 @@
         position: absolute;
         left: 0;
         bottom: 0;
+    }
+
+    main #saiba-mais .content {
+        min-width: 60rem;
+        max-width: 60rem;
+        min-height: 55vh;
     }
 }
 

@@ -1,4 +1,4 @@
-import { isMobileScreen, isTabletScreen, isElementInViewport } from "./utils.js";
+import { isMobileScreen, isTabletScreen } from "./utils.js";
 
 function getMiddleIndex(items) {
     const container = document.querySelector('.shirts-container');
