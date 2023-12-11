@@ -60,14 +60,12 @@ function initializeShirtsSlider() {
     const swiperItems = document.querySelectorAll('.shirts-container .swiper-slide');
     const itemSpace = document.querySelector('.shirts-container .item-space');
 
-    shirtsSwiper.on('slideChange', () => {
-        updateActiveShirt(swiperItems)
-        handleItemSpaceVisibility(shirtsSwiper, itemSpace);
-    });
-    
-    shirtsSwiper.on('touchMove', () => {
-        updateActiveShirt(swiperItems)
-        handleItemSpaceVisibility(shirtsSwiper, itemSpace);
+    const swiperEvents = ['slideChange','touchMove'];
+    swiperEvents.forEach(event => {
+        shirtsSwiper.on(event, () => {
+            updateActiveShirt(swiperItems)
+            handleItemSpaceVisibility(shirtsSwiper, itemSpace);
+        });
     });
 }
 
