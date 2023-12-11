@@ -31,7 +31,8 @@ function updateActiveShirt(items) {
 
 function handleItemSpaceVisibility(swiper, itemSpace) {
     const firstSlide = swiper.slides[0];
-    const isItemSpaceVisible = isElementInViewport(firstSlide);
+    const { x, width } = firstSlide.getBoundingClientRect();
+    const isItemSpaceVisible = x + (width / 2) >= 0;
 
     if (isItemSpaceVisible) {
         return itemSpace.classList.remove('on-hide');
