@@ -10,6 +10,10 @@ html {
     font-size: 62.5%!important;
 }
 
+*{
+	font-family: Area;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -38,7 +42,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Area;
 	line-height: 1;
 }
 
@@ -63,4 +67,16 @@ table {
 
 a {
     text-decoration: none;
+}
+
+@font-face {
+    font-family: "Area";
+    src: url("../assets/extrabold.otf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Area";
+    src: url("../assets/semibold.otf");
+    font-weight: normal;
 }
