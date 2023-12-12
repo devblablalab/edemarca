@@ -10,9 +10,7 @@ export function initLearnMoreHandles() {
     const $modal = $('#saiba-mais');
     const $close = $modal.find('#close');
 
-    $close.on('click',() => {
-        $modal.removeClass('active');
-    });
+    $close.on('click',() => $modal.removeClass('active'));
 
     $modal.on('click',(e) => {
         if(e.target === e.currentTarget) {

@@ -67,6 +67,15 @@ function initializeShirtsSlider() {
             handleItemSpaceVisibility(shirtsSwiper, itemSpace);
         });
     });
+
+    $(document).on('keydown', function (e) {
+        switch(e.key) {
+            case 'ArrowRight':
+                shirtsSwiper.slideNext();
+            case 'ArrowLeft':
+                shirtsSwiper.slidePrev();
+        }
+    });
 }
 
 export function getShirtHtml(shirtData) {
