@@ -52,6 +52,7 @@
 
     main #saiba-mais .content .body {
         gap: 2rem;
+        padding: 4rem;
     }
 
     main #saiba-mais .content .body .presentation-text {
