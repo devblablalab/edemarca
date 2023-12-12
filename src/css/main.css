@@ -100,7 +100,7 @@ main .shirts-container .item-space.on-hide {
 }
 
 main .shirts-container .shirt {
-    min-width: 23rem;
+    min-width: 26.5rem;
     max-width: 23rem;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -182,18 +182,26 @@ main .shirts-container .shirt .infos .initial {
 }
 
 main .shirts-container .shirt .infos .brand {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     word-wrap: break-word;
     font-weight: 600;
 }
 
 main .shirts-container .shirt .infos .price {
+    position: relative;
     font-size: 1.6rem;
-    font-weight: 700;
 }
 
-main .shirts-container .shirt .infos .price span {
+main .shirts-container .shirt .infos .price span.symbol {
+    display: inline-block;
+    font-size: 1.4rem;
+    transform: translateY(-.5rem);
+    font-weight: 600;
+}
+
+main .shirts-container .shirt .infos .price span.value {
     font-size: 2.4rem;
+    font-weight: 700;
 }
 
 main .shirts-container .shirt svg.shirt-svg {

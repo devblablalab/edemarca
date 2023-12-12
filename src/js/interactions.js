@@ -13,6 +13,12 @@ export function initLearnMoreHandles() {
     $close.on('click',() => {
         $modal.removeClass('active');
     });
+
+    $modal.on('click',(e) => {
+        if(e.target === e.currentTarget) {
+            $(e.currentTarget).removeClass('active');
+        }
+    });
 }
 
 export function triggerSplashScreen() {

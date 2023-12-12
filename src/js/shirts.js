@@ -49,7 +49,7 @@ function initializeShirtsSlider() {
     };
 
     if(!isMobileScreen()) {
-        swiperOptions.slidesPerView = isTabletScreen() ? 3 : 4;
+        swiperOptions.slidesPerView = isTabletScreen() ? 2 : 4;
         swiperOptions.spaceBetween = isTabletScreen() ? 40 : 80;
         swiperOptions.mousewheel = {
             invert: true,
@@ -85,8 +85,9 @@ export function getShirtHtml(shirtData) {
             </div>
             <div class="infos">
                 <p class="brand">${brand}</p>
-                <p class="price">R$ 
-                    <span>
+                <p class="price">
+                    <span class="symbol">R$</span>
+                    <span class="value">
                         ${Number.isInteger(price) ? price.toString().replace('.', ',') : price.toFixed(2).replace('.', ',')}
                     </span>
                 </p>
