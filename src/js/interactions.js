@@ -17,7 +17,7 @@ export function initLearnMoreHandles() {
 
 export function triggerSplashScreen() {
     const $splashScreen = $('#splash-screen');
-    const delayTime = 3000;
+    const delayTime = 2000;
 
     $('#splash-right').animate({
         'left': "-500000px",
@@ -29,7 +29,7 @@ export function triggerSplashScreen() {
         $splashScreen.remove();
     });
 
-    // setTimeout(function() {
-    //     $splashScreen.css('z-index', 'unset');
-    // }, 800); 
+    setTimeout(function() {
+        $splashScreen.css('z-index', 'unset');
+    }, 1000); 
 }
