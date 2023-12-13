@@ -11,7 +11,7 @@ body::-webkit-scrollbar{
 
 .main-header {
     position: relative;
-    padding: .5rem 0;
+    /* padding: .5rem 0; */
     border-bottom: 2px solid var(--primary);
 }
 
@@ -20,6 +20,8 @@ body::-webkit-scrollbar{
     display: -ms-flexbox;
     display: flex;
     gap: 2rem;
+    padding: unset;
+    padding-left: 2em;
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
@@ -46,6 +48,8 @@ body::-webkit-scrollbar{
 
 .main-header .container .menu .menu-item {
     border: 2px solid var(--primary);
+    border-top: none;
+    border-bottom: none;
     padding: .8rem 1rem;
     -webkit-transition: all .2s;
     -o-transition: all .2s;
@@ -418,6 +422,7 @@ main #saiba-mais .content .body .presentation-text strong {
 
 main #saiba-mais .content .body .warning-text {
     font-size: 1.4rem;
+    line-height: 2rem;
     color: var(--gray);
 }
 /* Saiba mais modal */
