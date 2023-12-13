@@ -4,14 +4,6 @@
     margin: 0 auto;
 }
 
-.d-none {
-    display: none!important;
-}
-
-.middle-ml {
-    margin-left: var(--margin-middle-shirts);
-}
-
 .blablalab-logo {
     display: flex;
     justify-content: center;

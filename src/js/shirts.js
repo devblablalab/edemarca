@@ -85,9 +85,10 @@ export function getShirtHtml(shirtData) {
                             </span>
                         </p>      
                     </div>  
+                    <button class="handle-reviews" type="button">Avaliações</button>
                     <div class="reviews">
-                        <button type="button">Avaliações</button>
-                    </div>   
+                        <div class="content"></div>
+                    </div>
                 </div>
             </div>
         </div>

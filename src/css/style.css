@@ -12,6 +12,7 @@ html {
 
 *{
 	font-family: Area;
+	box-sizing: border-box;
 }
 
 html, body, div, span, applet, object, iframe,
