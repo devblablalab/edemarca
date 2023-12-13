@@ -47,7 +47,5 @@ export function triggerSplashScreen() {
         $splashScreen.remove();
     });
 
-    setTimeout(function() {
-        $splashScreen.css('z-index', 'unset');
-    }, 1100); 
+  
 }
