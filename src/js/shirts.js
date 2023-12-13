@@ -1,3 +1,4 @@
+import { ajaxRenderComments } from "./ajax.js";
 import { initCloseButtonsHandle, initReviewsHandles } from "./interactions.js";
 import { isMobileScreen, isTabletScreen } from "./utils.js";
 
@@ -90,7 +91,7 @@ export function getShirtHtml(shirtData) {
                         <p class="price">
                             <span class="symbol">R$</span> 
                             <span class="value">
-                                ${Number.isInteger(price) ? price.toString().replace('.', ',') : price.toFixed(2).replace('.', ',')}
+                                ${Number.isInteger(price) ? Number(price).toString().replace('.', ',') : Number(price).toFixed(2).replace('.', ',')}
                             </span>
                         </p>      
                     </div>  
@@ -105,26 +106,7 @@ export function getShirtHtml(shirtData) {
                             </div>
                             <p class="warning">Comente sobre essa marca no nosso vídeo pra aparecer aqui</p>
                             <div class="comments">
-                                <div class="comment">
-                                    <p class="username">@phpKary</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
-                                <div class="comment">
-                                    <p class="username">@p0nzu</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
-                                <div class="comment">
-                                    <p class="username">@blablawtf</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
-                                <div class="comment">
-                                    <p class="username">@Mark Zuckerberg</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
-                                <div class="comment">
-                                    <p class="username">@phpKary</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
+                                <p class="no-comments">Não existem comentários para essa marca...</p>
                             </div>
                         </div>
                     </div>
@@ -143,6 +125,8 @@ export function renderShirts(data) {
     const lastItemHtml = getShirtHtml(data[data.length - 1]);
     const lastItemHiddenHtml = lastItemHtml;
     [itemsHtml,lastItemHiddenHtml,lastItemHiddenHtml].forEach(html => $shirts.append(html));
+
+    ajaxRenderComments();
     
     initializeShirtsSlider();
     initReviewsHandles();

@@ -338,6 +338,12 @@ main .shirts-container .shirt .reviews .comments::-webkit-scrollbar-thumb:hover 
     background: var(--gray);
 }
 
+
+main .shirts-container .shirt .reviews .comments .no-comments {
+    font-size: 1.6rem;
+    color: var(--primary);
+}
+
 main .shirts-container .shirt .reviews .comments .comment {
     display: -webkit-box;
     display: -ms-flexbox;
