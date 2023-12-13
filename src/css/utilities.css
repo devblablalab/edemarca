@@ -10,8 +10,37 @@
     align-items: center;
 }
 
-.blablalab-logo > img{
-    width: 10rem;
+.blablalab-logo > img {
+    width: 12rem;
     height: 6rem;
+}
 
+.close {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    padding: 1rem 1rem;
+    border-bottom: 2px solid var(--primary);
+    border-left: 2px solid var(--primary);
+    cursor: pointer;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.close svg {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.close svg path {
+    fill: var(--primary);
+}
+
+.close:hover {
+    background: var(--primary);
+}
+
+.close:hover svg path {
+    fill: var(--light);
 }

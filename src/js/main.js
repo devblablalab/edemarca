@@ -1,6 +1,6 @@
 import { renderShirts } from './shirts.js';
 import { ajaxPromiseShirtsData } from './ajax.js';
-import { toggleLearnMore, triggerSplashScreen, initLearnMoreHandles } from './interactions.js';
+import { toggleLearnMore, triggerSplashScreen, initLearnMoreHandle, initCloseButtonsHandle } from './interactions.js';
 
 $(document).ready(function() {
     const $menuItems = $('.menu-item');
@@ -10,9 +10,11 @@ $(document).ready(function() {
       renderShirts(data.reverse());
       triggerSplashScreen();
     }
-    initShirts();
 
-    initLearnMoreHandles();
+    initShirts();
+    initLearnMoreHandle();
+    initCloseButtonsHandle();
+
     $menuItems.on('click',toggleLearnMore);
 });
 

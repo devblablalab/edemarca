@@ -191,7 +191,8 @@ main .shirts-container .shirt button.handle-reviews {
 }
 
 main .shirts-container .shirt .reviews {
-    /* position: absolute;
+    display: none;
+    position: absolute;
     z-index: 997;
     top: 0;
     left: 0;
@@ -200,7 +201,7 @@ main .shirts-container .shirt .reviews {
     max-width: 30rem;
     background: var(--light);
     border: 2px solid var(--primary);
-    padding: 2rem; */
+    padding: 2rem;
 }
 
 main .shirts-container .shirt .reviews .content {
@@ -295,26 +296,6 @@ main #saiba-mais .content {
     color: var(--primary);
     background: var(--light);
     border: 2px solid var(--primary);
-}
-
-main #saiba-mais #close {
-   position: absolute;
-   top: 0;
-   right: 0;
-   padding: 1.5rem 2rem;
-   border-bottom: 2px solid var(--primary);
-   border-left: 2px solid var(--primary);
-   font-size: 1.8rem;
-   font-weight: 600;
-   cursor: pointer;
-   -webkit-transition: all .2s ease-in-out;
-   -o-transition: all .2s ease-in-out;
-   transition: all .2s ease-in-out;
-}
-
-main #saiba-mais #close:hover {
-    background: var(--primary);
-    color: var(--light);
 }
 
 main #saiba-mais .content .body {

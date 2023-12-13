@@ -6,16 +6,19 @@ export function toggleLearnMore(e) {
     }
 }
 
-export function initLearnMoreHandles() {
+export function initLearnMoreHandle() {
     const $modal = $('#saiba-mais');
-    const $close = $modal.find('#close');
-
-    $close.on('click',() => $modal.removeClass('active'));
-
     $modal.on('click',(e) => {
         if(e.target === e.currentTarget) {
             $(e.currentTarget).removeClass('active');
         }
+    });
+}
+
+export function initCloseButtonsHandle() {
+    const $closeBtns = $('.handle-close');
+    $closeBtns.click(function() {
+        $(this).closest('.active').removeClass('active');
     });
 }
 
@@ -35,5 +38,5 @@ export function triggerSplashScreen() {
 
     setTimeout(function() {
         $splashScreen.css('z-index', 'unset');
-    }, 1800); 
+    }, 1100); 
 }

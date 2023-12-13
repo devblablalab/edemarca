@@ -87,7 +87,14 @@ export function getShirtHtml(shirtData) {
                     </div>  
                     <button class="handle-reviews" type="button">Avaliações</button>
                     <div class="reviews">
-                        <div class="content"></div>
+                        <div class="content">
+                            <div class="close handle-close">
+                                <svg viewBox="0 0 38 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.94847 0.203143L0.827148 2.32446L35.3835 36.8808L37.5048 34.7595L2.94847 0.203143Z" />
+                                    <path d="M35.3835 0.210297L0.827148 34.7666L2.94847 36.8879L37.5048 2.33162L35.3835 0.210297Z" />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
