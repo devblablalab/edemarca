@@ -29,18 +29,6 @@ function updateActiveShirt(items) {
     items[middleIndex].classList.add('active-shirt');
 }
 
-function handleItemSpaceVisibility(swiper, itemSpace) {
-    const firstSlide = swiper.slides[0];
-    const { x, width } = firstSlide.getBoundingClientRect();
-    const isItemSpaceVisible = x + (width / 2) >= 0;
-
-    if (isItemSpaceVisible) {
-        return itemSpace.classList.remove('on-hide');
-    }
-
-    itemSpace.classList.add('on-hide');
-}
-
 function initializeShirtsSlider() {
     let swiperOptions = {
         slidesPerView: 'auto',
@@ -58,18 +46,10 @@ function initializeShirtsSlider() {
 
     const shirtsSwiper = new Swiper('.shirts-container', swiperOptions);
     const swiperItems = document.querySelectorAll('.shirts-container .swiper-slide');
-    const itemSpace = document.querySelector('.shirts-container .item-space');
 
     const swiperEvents = ['slideChange', 'touchMove'];
     swiperEvents.forEach(event => {
-        shirtsSwiper.on(event, () => {
-            updateActiveShirt(swiperItems)
-            handleItemSpaceVisibility(shirtsSwiper, itemSpace);
-        });
-    });
-
-    $(window).on('wheel',() => {
-        handleItemSpaceVisibility(shirtsSwiper, itemSpace)
+        shirtsSwiper.on(event, () => updateActiveShirt(swiperItems));
     });
 
     $(document).on('keydown', function (e) {
@@ -119,7 +99,10 @@ export function renderShirts(data) {
     const $shirtsContainer = $('.shirts-container');
     const $shirts = $shirtsContainer.find('.shirts');
 
-    $shirts.append(data.map(item => getShirtHtml(item)).join(''));
+    const itemsHtml = data.map(item => getShirtHtml(item)).join('');
+    const lastItemHtml = getShirtHtml(data[data.length - 1]);
+    const lastItemHiddenHtml = lastItemHtml;
+    [itemsHtml,lastItemHiddenHtml,lastItemHiddenHtml].forEach(html => $shirts.append(html));
     
     initializeShirtsSlider();
 }  
