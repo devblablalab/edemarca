@@ -46,18 +46,10 @@ function initializeShirtsSlider() {
 
     const shirtsSwiper = new Swiper('.shirts-container', swiperOptions);
     const swiperItems = document.querySelectorAll('.shirts-container .swiper-slide');
-    const itemSpace = document.querySelector('.shirts-container .item-space');
 
     const swiperEvents = ['slideChange', 'touchMove'];
     swiperEvents.forEach(event => {
-        shirtsSwiper.on(event, () => {
-            updateActiveShirt(swiperItems)
-            handleItemSpaceVisibility(shirtsSwiper, itemSpace);
-        });
-    });
-
-    $(window).on('wheel',() => {
-        handleItemSpaceVisibility(shirtsSwiper, itemSpace)
+        shirtsSwiper.on(event, () => updateActiveShirt(swiperItems));
     });
 
     $(document).on('keydown', function (e) {
