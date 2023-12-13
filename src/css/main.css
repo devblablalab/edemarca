@@ -109,7 +109,10 @@ main .shirts-container .shirt {
 
 main .shirts-container .shirt:nth-last-child(1),
 main .shirts-container .shirt:nth-last-child(2) {
+    min-width: auto;
+    max-width: 2rem;
     visibility: hidden;
+    margin-right: 0!important;
 }
 
 main .shirts-container .shirt .content .body {
