@@ -145,6 +145,16 @@
         height: 32rem;
     }
 
+    main .shirts-container .shirt button.handle-reviews:hover {
+        background-color: var(--primary);
+        color: var(--light);
+    }
+
+    main .shirts-container .shirt .reviews .warning {
+        max-width: 35rem;
+        font-size: 1.8rem;
+    }
+
     .main-footer {
         position: absolute;
         left: 0;
@@ -224,7 +234,7 @@
     main .shirts-container .shirt button.handle-reviews {
         font-size: 1.5rem;
     }
-
+    
     main .shirts-container .shirt svg.shirt-svg {
         width: 20rem;
         height: 20rem;

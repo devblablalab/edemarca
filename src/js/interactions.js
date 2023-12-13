@@ -1,3 +1,11 @@
+function handleCloseClosestActive() {
+    $(this).closest('.active').removeClass('active');
+}
+
+function handleReviews() {
+    $(this).parent().find('.reviews').toggleClass('active');
+}
+
 export function toggleLearnMore(e) {
     e.preventDefault();
     const targetId = this.dataset.targetId;
@@ -17,9 +25,12 @@ export function initLearnMoreHandle() {
 
 export function initCloseButtonsHandle() {
     const $closeBtns = $('.handle-close');
-    $closeBtns.click(function() {
-        $(this).closest('.active').removeClass('active');
-    });
+    $closeBtns.click(handleCloseClosestActive);
+}
+
+export function initReviewsHandles() {
+    const $handleReviewsBtns = $('.handle-reviews');
+    $handleReviewsBtns.click(handleReviews);
 }
 
 export function triggerSplashScreen() {

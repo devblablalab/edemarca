@@ -1,3 +1,4 @@
+import { initCloseButtonsHandle, initReviewsHandles } from "./interactions.js";
 import { isMobileScreen, isTabletScreen } from "./utils.js";
 
 function getMiddleIndex(items) {
@@ -94,6 +95,29 @@ export function getShirtHtml(shirtData) {
                                     <path d="M35.3835 0.210297L0.827148 34.7666L2.94847 36.8879L37.5048 2.33162L35.3835 0.210297Z" />
                                 </svg>
                             </div>
+                            <p class="warning">Comente sobre essa marca no nosso vídeo pra aparecer aqui</p>
+                            <div class="comments">
+                                <div class="comment">
+                                    <p class="username">@phpKary</p>
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
+                                </div>
+                                <div class="comment">
+                                    <p class="username">@p0nzu</p>
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
+                                </div>
+                                <div class="comment">
+                                    <p class="username">@blablawtf</p>
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
+                                </div>
+                                <div class="comment">
+                                    <p class="username">@Mark Zuckerberg</p>
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
+                                </div>
+                                <div class="comment">
+                                    <p class="username">@phpKary</p>
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,4 +137,6 @@ export function renderShirts(data) {
     [itemsHtml,lastItemHiddenHtml,lastItemHiddenHtml].forEach(html => $shirts.append(html));
     
     initializeShirtsSlider();
+    initReviewsHandles();
+    initCloseButtonsHandle();
 }  
