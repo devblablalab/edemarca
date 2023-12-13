@@ -32,7 +32,7 @@ class HttpResponse
 
     public function getShirtsData()
     {
-        return $this->getData("SELECT id, brand, price FROM shirts");
+        return $this->getData("SELECT id_shirts, brand, price FROM shirts");
     }
 
     public function getCommentsData()
