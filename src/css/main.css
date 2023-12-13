@@ -94,11 +94,6 @@ main .shirts-container .item-space {
     margin-right: var(--margin-middle-shirts);
 }
 
-main .shirts-container .item-space.on-hide {
-    margin-left: -13rem;
-    margin-right: 0;
-}
-
 main .shirts-container .shirt {
     min-width: 30rem;
     max-width: 30rem;
@@ -109,6 +104,11 @@ main .shirts-container .shirt {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+}
+
+main .shirts-container .shirt:nth-last-child(1),
+main .shirts-container .shirt:nth-last-child(2) {
+    visibility: hidden;
 }
 
 main .shirts-container .shirt .content .body {
