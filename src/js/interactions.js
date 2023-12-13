@@ -35,5 +35,5 @@ export function triggerSplashScreen() {
 
     setTimeout(function() {
         $splashScreen.css('z-index', 'unset');
-    }, 1000); 
+    }, 1800); 
 }
