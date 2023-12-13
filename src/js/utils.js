@@ -26,4 +26,4 @@ export function isTabletScreen() {
 
 export function isMobileScreen() {
     return screenMaxMatches(767);
-}
+} 

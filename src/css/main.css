@@ -73,6 +73,13 @@ body::-webkit-scrollbar{
     fill: var(--light);
 }
 
+main {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 main .question {
     padding: 5rem 0;
     text-align: center;
@@ -402,6 +409,7 @@ main #saiba-mais .content {
     min-width: 100%;
     min-height: 100%;
     max-height: 100vh;
+    overflow: auto;
     color: var(--primary);
     background: var(--light);
     border: 2px solid var(--primary);
@@ -447,9 +455,10 @@ main #saiba-mais .content .body .warning-text {
         -ms-flex-align: center;
             align-items: center;
     padding: 2rem 0;
-    position: absolute;
+    margin-top: 3rem;
+    /* position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: 0; */
 }
 
 #splash-screen {
