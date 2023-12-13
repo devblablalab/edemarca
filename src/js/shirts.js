@@ -38,11 +38,19 @@ function initializeShirtsSlider() {
     };
 
     if(!isMobileScreen()) {
+        $(document).on('mousemove', function (e) {
+            if ($(e.target).closest('.reviews').length) {
+                shirtsSwiper.mousewheel.disable();
+            } else {
+                shirtsSwiper.mousewheel.enable();
+            }
+        });
+    
         swiperOptions.slidesPerView = isTabletScreen() ? 2 : 4;
         swiperOptions.spaceBetween = isTabletScreen() ? 40 : 80;
         swiperOptions.mousewheel = {
             invert: true,
-        }
+        };
     }
 
     const shirtsSwiper = new Swiper('.shirts-container', swiperOptions);
