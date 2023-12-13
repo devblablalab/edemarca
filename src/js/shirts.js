@@ -73,13 +73,13 @@ function initializeShirtsSlider() {
 }   
 
 export function getShirtHtml(shirtData) {
-    const { id, brand, price } = shirtData;
+    const { id_shirts, brand, price } = shirtData;
 
     return `
-        <div data-id="${id}" class="shirt swiper-slide">
+        <div data-id="${id_shirts}" class="shirt swiper-slide">
             <div class="content">
                 <div class="header">
-                    <p class="order-id">${id}.</p> 
+                    <p class="order-id">${id_shirts}.</p> 
                     <p class="brand">${brand}</p>
                 </div>
                 <div class="body">
