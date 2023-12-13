@@ -155,11 +155,11 @@
         font-size: 1.8rem;
     }
 
-    .main-footer {
+    /* .main-footer {
         position: absolute;
         left: 0;
         bottom: 0;
-    }
+    } */
 
     main #saiba-mais .content {
         min-width: 60rem;
