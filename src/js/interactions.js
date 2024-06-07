@@ -35,17 +35,19 @@ export function initReviewsHandles() {
 
 export function triggerSplashScreen() {
     const $splashScreen = $('#splash-screen');
-    const delayTime = 2000;
+    const delayTime = 1500;
 
     $('#splash-right').animate({
-        'left': "-500000px",
+        'width': '0',
+        'opacity': 0,
     }, delayTime);
-    
-    $('#splash-left').animate({
-        'left': "500000px",
-    }, delayTime, function() {
-        $splashScreen.remove();
-    });
 
-  
+    $('#splash-left').animate({
+        'width': '0',
+        'opacity': 0,
+    }, delayTime);
+
+    setTimeout(() => {
+        $splashScreen.remove();
+    },800)
 }

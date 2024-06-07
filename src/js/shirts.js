@@ -105,26 +105,7 @@ export function getShirtHtml(shirtData) {
                             </div>
                             <p class="warning">Comente sobre essa marca no nosso vídeo pra aparecer aqui</p>
                             <div class="comments">
-                                <div class="comment">
-                                    <p class="username">@phpKary</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
-                                <div class="comment">
-                                    <p class="username">@p0nzu</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
-                                <div class="comment">
-                                    <p class="username">@blablawtf</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
-                                <div class="comment">
-                                    <p class="username">@Mark Zuckerberg</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
-                                <div class="comment">
-                                    <p class="username">@phpKary</p>
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
-                                </div>
+                                <div class="notfound">Sem comentários..</div>
                             </div>
                         </div>
                     </div>
@@ -132,6 +113,12 @@ export function getShirtHtml(shirtData) {
             </div>
         </div>
     `;
+
+    // Comment Example
+    // <div class="comment">
+    //     <p class="username">@phpjsp</p>
+    //     <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor.</p>
+    // </div>
 }
 
 export function renderShirts(data) {

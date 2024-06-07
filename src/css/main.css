@@ -373,6 +373,11 @@ main .shirts-container .shirt .reviews .comments .comment .message {
     color: var(--primary);
 }
 
+main .shirts-container .shirt .reviews .comments .notfound {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
 /* Saiba mais modal */
 main #saiba-mais {
     position: fixed;
@@ -493,11 +498,13 @@ main #saiba-mais .content .body .warning-text {
 #splash-screen #splash-right{
     top: 0;
     left: 0;
+    transition: right 60ms ease-in-out;
 }
 
 #splash-screen #splash-left{
     top: 0;
     right: 0;
+    transition: left 60ms ease-in-out;
 }
 
 #splash-screen #splash-right .handle {
@@ -513,3 +520,21 @@ main #saiba-mais .content .body .warning-text {
     border: 3px solid var(--primary);
     margin-right: 70%;
 }
+
+/* @keyframes slideOutRight {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -500000px;
+    }
+}
+
+@keyframes slideOutLeft {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 500000px;
+    }
+} */

@@ -151,7 +151,7 @@
     }
 
     main .shirts-container .shirt .reviews .warning {
-        max-width: 35rem;
+        max-width: 32.5rem;
         font-size: 1.8rem;
     }
 
@@ -165,6 +165,13 @@
         min-width: 60rem;
         max-width: 60rem;
         min-height: 55vh;
+    }
+    #splash-screen #splash-right{
+        transition: right 200ms ease-in-out;
+    }
+    
+    #splash-screen #splash-left{
+        transition: left 200ms ease-in-out;
     }
 }
 
